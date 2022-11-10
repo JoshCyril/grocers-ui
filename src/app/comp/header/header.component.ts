@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { ModelCartComponent } from '../model-cart/model-cart.component';
 
 @Component({
   selector: 'app-header',
@@ -12,32 +13,53 @@ export class HeaderComponent implements OnInit {
   uid: string | null;
   uname: string | null;
   uadmin: string | null;
+  modalRef: MdbModalRef<ModelCartComponent> | null = null;
 
-  constructor(public router: Router, private authServ: LoginService) { }
+  constructor(public router: Router, private modalService: MdbModalService) { }
+
+
+  openModal() {
+    this.modalRef = this.modalService.open(ModelCartComponent, {
+      data: { title: 'Viewing Cart' },
+    });
+  }
 
   ngOnInit(): void {
     this.uid = localStorage.getItem('g_uid')
     this.uname = localStorage.getItem('g_uname')
     this.uadmin = localStorage.getItem('g_uadmin')
-    console.log(this.uid, this.uname);
-    this.authServ.loginUser(this.uid !== null)
-    this.authServ.getEmitter().subscribe(x => console.log(x))
+    // console.log(this.uid, this.uname);
+    // this.reloadPage()
   }
 
-  reloadComponent(self: boolean, urlToNavigateTo?: string) {
-    //skipLocationChange:true means dont update the url to / when navigating
-    console.log("Current route I am on:", this.router.url);
-    const url = self ? this.router.url : urlToNavigateTo;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([`/${url}`]).then(() => {
-        console.log(`After navigation I am on:${this.router.url}`)
-      })
-    })
+  getVal() {
+
+    this.uid = localStorage.getItem('g_uid')
+    this.uname = localStorage.getItem('g_uname')
+    this.uadmin = localStorage.getItem('g_uadmin')
+
+    if (this.uid !== null) {
+      // console.log("uID: true", this.uid)
+      return true
+    } else {
+      // console.log("uID: false", this.uid)
+      return false
+    }
+  }
+  logout() {
+    localStorage.removeItem('g_uid')
+    localStorage.removeItem('g_uname')
+    localStorage.removeItem('g_uadmin')
+    return true
   }
 
-  reloadPage() {
-    window.location.reload()
-    console.log(`:${this.router.url} reloaded`)
-  }
+  isUserAdmin() {
+    this.uadmin = localStorage.getItem('g_uadmin')
+    if (this.uadmin === "true") {
+      return true
+    } else {
+      return false
+    }
 
+  }
 }

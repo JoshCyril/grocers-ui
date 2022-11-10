@@ -37,14 +37,14 @@
         <!-- Left links -->
 
 
-        <div *ngIf="uid === null" class="d-flex align-items-center">
+        <div *ngIf="!getVal()" class="d-flex align-items-center">
           <button type="button" class="btn btn-outline-secondary btn-rounded px-3 mx-4" routerLink="/signin">
             Sign In</button>
           <button type="button" class="btn btn-secondary btn-rounded me-3" routerLink="/signup">
             Sign up for free</button>
         </div>
 
-        <div *ngIf="uid !== null" class="d-flex align-items-center">
+        <div *ngIf="getVal()" class="d-flex align-items-center">
 
           <button type="button" class="btn btn-outline-secondary btn-rounded px-3 mx-4" routerLink="/store">
             Store</button>
@@ -55,7 +55,7 @@
           <!-- Badge -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" (click)="openModal()">
                 <span class="badge badge-pill bg-danger">0</span>
                 <span><i class="fas fa-shopping-cart"></i></span>
               </a>
@@ -64,17 +64,25 @@
           
           <div mdbDropdown class="dropdown">
             <button
-              class="btn btn-link btn-rounded px-4 mx-3"
+              class="btn btn-link btn-rounded dropdown-toggle px-4 mx-3"
               type="button"
-              id="dropdownMenuButton"
-              aria-expanded="false"
+              id="dropdownMenu2"
               mdbDropdownToggle
+              aria-expanded="false"
             >
             Hi, {{uname}}
             </button>
-            <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>View Profile</a></li>
-              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a></li>
+            <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <hr class="hr hr-blurry" />
+              <li><button class="dropdown-item" type="button" routerLink="/profile"><i class="fa-solid fa-user me-2"></i>View Profile</button></li>
+              <div *ngIf="isUserAdmin()">
+                <hr class="hr hr-blurry" />
+                <button class="dropdown-item" type="button" routerLink="/e/users"><i class="fa-solid fa-user-pen me-2"></i>Edit Users</button>
+                <button class="dropdown-item" type="button" routerLink="/e/products"><i class="fa-solid fa-file-pen me-2"></i>Edit Products</button>
+                <button class="dropdown-item" type="button" routerLink="/e/categories"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Categories</button>
+              </div>
+              <hr class="hr hr-blurry" />
+              <li><button class="dropdown-item" type="button" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</button></li>
             </ul>
           </div>
 
@@ -89,4 +97,3 @@
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
-  <div class="h-spacer"></div>
