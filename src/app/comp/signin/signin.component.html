@@ -1,1 +1,40 @@
-<p>signin works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-3">
+            <h2 class="text-secondary">Sign In</h2>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label>Login ID</label>
+                    <input type="text" placeholder="Username or Email ID" formControlName="name" class="form-control" [(ngModel)]="user"
+                    [ngClass]="{'is-invalid':submitted && form['name'].errors}">
+
+                    <div *ngIf="submitted && form['name'].errors" class="invalid-feedback">
+                        <div *ngIf="form['name'].errors['required']">
+                            Can't be blank
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" formControlName="password" class="form-control"
+                    [ngClass]="{'is-invalid':submitted && form['password'].errors}" [(ngModel)]="password">
+                    <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
+                        <div *ngIf="form['password'].errors['required']">
+                            Can't be blank
+                        </div>
+                        <div *ngIf="form['password'].errors['minlength']">
+                            Password must have atleast 8 character
+                        </div>
+                    </div>
+                </div>
+                
+                <br>
+                <div class="form-group">
+                    <button class="btn btn-secondary">Sign In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

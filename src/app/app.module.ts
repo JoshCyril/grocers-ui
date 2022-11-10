@@ -24,6 +24,8 @@ import { SignupComponent } from './comp/signup/signup.component';
 import { SigninComponent } from './comp/signin/signin.component';
 import { HeaderComponent } from './comp/header/header.component';
 import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.comp
     MdbTabsModule,
     MdbTooltipModule,
     MdbValidationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

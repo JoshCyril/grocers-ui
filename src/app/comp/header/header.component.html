@@ -4,7 +4,7 @@
     <!-- Container wrapper -->
     <div class="container">
       <!-- Navbar brand -->
-      <a class="navbar-brand me-2" routerLink="/Home">
+      <a class="navbar-brand me-2" routerLink="/home">
         <img
           src="../../../assets/img/Grocers Logo full.png"
           height="45"
@@ -33,29 +33,27 @@
         #buttonsNav="mdbCollapse"
       >
         <!-- Left links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item">
-            <a class="nav-link" routerLink="/Store">Store</a>
-          </li> -->
-        </ul>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
         <!-- Left links -->
-        <div class="d-flex align-items-center">
-          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 me-2" routerLink="/Login">
-            SIGN IN
-          </button>
-          <button type="button" class="btn btn-secondary btn-rounded me-3" routerLink="/Signup">
-            Sign up for free
-          </button>
-          <!-- <a
-            class="btn btn-dark px-3"
-            href="https://github.com/mdbootstrap/mdb-ui-kit"
-            role="button"
-            ><i class="fab fa-github"></i
-          ></a> -->
-           <!-- Notification dropdown -->
+
+
+        <div *ngIf="uid === null" class="d-flex align-items-center">
+          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 mx-4" routerLink="/signin">
+            Sign In</button>
+          <button type="button" class="btn btn-secondary btn-rounded me-3" routerLink="/signup">
+            Sign up for free</button>
+        </div>
+
+        <div *ngIf="uid !== null" class="d-flex align-items-center">
+
+          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 mx-4" routerLink="/store">
+            Store</button>
+
+          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 me-4" routerLink="/store">
+            Orders</button>
+
           <!-- Badge -->
           <ul class="navbar-nav">
-            <!-- Badge -->
             <li class="nav-item">
               <a class="nav-link" href="#">
                 <span class="badge badge-pill bg-danger">0</span>
@@ -63,12 +61,32 @@
               </a>
             </li>
           </ul>
-           
+          
+          <div mdbDropdown class="dropdown">
+            <button
+              class="btn btn-link btn-rounded px-4 mx-3"
+              type="button"
+              id="dropdownMenuButton"
+              aria-expanded="false"
+              mdbDropdownToggle
+            >
+            Hi, {{uname}}
+            </button>
+            <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>View Profile</a></li>
+              <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i> Sign Out</a></li>
+            </ul>
+          </div>
 
         </div>
+          
+           
+
+        
       </div>
       <!-- Collapsible wrapper -->
     </div>
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->
+  <div class="h-spacer"></div>
