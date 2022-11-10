@@ -23,6 +23,7 @@ import { HomeComponent } from './comp/home/home.component';
 import { SignupComponent } from './comp/signup/signup.component';
 import { SigninComponent } from './comp/signin/signin.component';
 import { HeaderComponent } from './comp/header/header.component';
+import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { HeaderComponent } from './comp/header/header.component';
     HomeComponent,
     SignupComponent,
     SigninComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
