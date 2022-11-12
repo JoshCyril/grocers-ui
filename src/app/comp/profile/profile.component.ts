@@ -16,6 +16,12 @@ export class ProfileComponent implements OnInit {
   constructor(private service: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // update message
+    localStorage.setItem('g_msg_update', "true")
+    localStorage.setItem('g_msg_color', "primary")
+    localStorage.setItem('g_msg_title', "Updated:")
+    localStorage.setItem('g_msg_text', "Profile")
+
     this.id = this.route.snapshot.paramMap.get('id');
     this.service.getUserById(String(this.id)).subscribe(x => this.user = x);
     if (this.id == null) {

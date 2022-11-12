@@ -36,6 +36,7 @@ import { CategoriesComponent } from './comp/edit/categories/categories.component
 import { UserComponent } from './comp/add/user/user.component';
 import { ProductComponent } from './comp/add/product/product.component';
 import { CategoryComponent } from './comp/add/category/category.component';
+import { FooterComponent } from './comp/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { CategoryComponent } from './comp/add/category/category.component';
     UserComponent,
     ProductComponent,
     CategoryComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

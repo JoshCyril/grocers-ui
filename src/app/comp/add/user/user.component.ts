@@ -85,11 +85,22 @@ export class UserComponent implements OnInit {
       console.log(this.user)
       if (!this.isUserExist) {
         if (this.isEditable) {
-          this.service.modifyUser(this.user, String(this.id)).subscribe(x => console.log(x, 'user modified'));
-          this.router.navigate(['e/users']);
+          this.service.modifyUser(this.user, String(this.id)).subscribe(x => console.log(x, 'user modified'))
+          location.href = 'e/users'
+
+          // update message
+          localStorage.setItem('g_msg_update', "true")
+          localStorage.setItem('g_msg_color', "primary")
+          localStorage.setItem('g_msg_title', "Updated:")
+          localStorage.setItem('g_msg_text', "User")
         } else {
           this.service.addUser(this.user).subscribe(x => console.log(x, 'user added'));
-          this.router.navigate(['e/users']);
+          location.href = 'e/users'
+          // update message
+          localStorage.setItem('g_msg_update', "true")
+          localStorage.setItem('g_msg_color', "primary")
+          localStorage.setItem('g_msg_title', "Added:")
+          localStorage.setItem('g_msg_text', "User")
         }
 
       }

@@ -18,6 +18,7 @@ export class SigninComponent implements OnInit {
   registerForm: FormGroup;
   submitted: boolean = false;
 
+
   constructor(private builder: FormBuilder,
     private service: ApiService, private router: Router) { }
 
@@ -48,6 +49,12 @@ export class SigninComponent implements OnInit {
         localStorage.setItem('g_uadmin', x.isAdmin)
       });
       this.router.navigate(['home']);
+
+      // update message
+      localStorage.setItem('g_msg_update', "true")
+      localStorage.setItem('g_msg_color', "secondary")
+      localStorage.setItem('g_msg_title', "Signin:")
+      localStorage.setItem('g_msg_text', "Successful")
     }
   }
 

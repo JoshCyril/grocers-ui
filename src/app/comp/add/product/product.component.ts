@@ -92,9 +92,22 @@ export class ProductComponent implements OnInit {
       if (this.isEditable) {
         this.service.modifyProduct(this.product, String(this.id)).subscribe(x => console.log(x, 'product modified'));
         this.router.navigate(['e/products']);
+
+        // update message
+        localStorage.setItem('g_msg_update', "true")
+        localStorage.setItem('g_msg_color', "primary")
+        localStorage.setItem('g_msg_title', "Updated:")
+        localStorage.setItem('g_msg_text', "Product")
+
       } else {
         this.service.addProduct(this.product).subscribe(x => console.log(x, 'product added'));
         this.router.navigate(['e/products']);
+        // update message
+        localStorage.setItem('g_msg_update', "true")
+        localStorage.setItem('g_msg_color', "primary")
+        localStorage.setItem('g_msg_title', "Added:")
+        localStorage.setItem('g_msg_text', "Product")
+
       }
     }
   }

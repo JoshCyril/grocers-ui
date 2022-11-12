@@ -50,7 +50,15 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('g_uid')
     localStorage.removeItem('g_uname')
     localStorage.removeItem('g_uadmin')
+
     this.router.navigate(['home']);
+
+    // update message
+    localStorage.setItem('g_msg_update', "true")
+    localStorage.setItem('g_msg_color', "success")
+    localStorage.setItem('g_msg_title', "User Signned Out")
+    localStorage.setItem('g_msg_text', "")
+
     return true
   }
 
