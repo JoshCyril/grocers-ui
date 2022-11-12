@@ -10,6 +10,7 @@ import { HomeComponent } from './comp/home/home.component';
 import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.component';
 import { SigninComponent } from './comp/signin/signin.component';
 import { SignupComponent } from './comp/signup/signup.component';
+import { ProfileComponent } from './comp/profile/profile.component';
 
 const appNameTitle = "Grocers"
 
@@ -44,13 +45,15 @@ const routes: Routes = [
   { path: "e/products", title: appNameTitle + ' - Edit Products', component: ProductsComponent },
   { path: "e/categories", title: appNameTitle + ' - Edit Categories', component: CategoriesComponent },
 
-  { path: "a/user/:id", title: appNameTitle + ' - Add User', component: UserComponent },
-  { path: "a/product/:id", title: appNameTitle + ' - Add Product', component: ProductComponent },
-  { path: "a/category/:id", title: appNameTitle + ' - Add Category', component: CategoryComponent },
+  { path: "a/user/:id", title: appNameTitle + ' - Modify User', component: UserComponent },
+  { path: "a/product/:id", title: appNameTitle + ' - Modify Product', component: ProductComponent },
+  { path: "a/category/:id", title: appNameTitle + ' - Modify Category', component: CategoryComponent },
 
   { path: "a/user", title: appNameTitle + ' - Add User', component: UserComponent },
   { path: "a/product", title: appNameTitle + ' - Add Product', component: ProductComponent },
   { path: "a/category", title: appNameTitle + ' - Add Category', component: CategoryComponent },
+
+  { path: "profile/:id", title: appNameTitle + ' - Profile', component: ProfileComponent },
 
   {
     path: "**",

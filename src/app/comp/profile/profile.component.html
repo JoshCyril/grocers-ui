@@ -1,1 +1,26 @@
-<p>profile works!</p>
+<div class="container">
+    <p class="fw-bold fs-3 mb-3">Profile</p>
+    <div class="row">
+        <div class="col-4">
+            <p class="fw-bold mb-1"><i class="fa-solid fa-user text-secondary me-2"></i>UserName</p>
+            <p class="text-muted fs-5 mb-0">{{user.name}}</p>
+        </div>
+        <div class="col-4">
+            <p class="fw-bold mb-1"><i class="fa-solid fa-envelope text-secondary me-2"></i>Email ID</p>
+            <p class="text-muted fs-5 mb-0">{{user.email}}</p>
+        </div>
+        <div class="col-4">
+            <p class="fw-bold mb-1"><i class="fa-solid fa-lock text-secondary me-2"></i> Password</p>
+            <p class="text-muted fs-5 b-0"> <a mdbTooltip="🔐 bcrypt" placement="bottom"> #Encrypted!!# </a></p>
+        </div>
+    </div>
+
+    <hr class="hr hr-blurry" />
+
+    <p class="fw-bold fs-4 my-3">WishList <a routerLink="/wishlist/{{user._id}}" class="link-dark ms-2 fs-6" mdbTooltip="Goto Wishlists" placement="top"> <i class="fa-solid fa-arrow-up-right-from-square"></i> </a></p>
+
+    <hr class="hr hr-blurry" />
+
+    <p class="fw-bold fs-4 my-3">Orders  <a routerLink="/orders/{{user._id}}" class="link-dark ms-2 fs-6" mdbTooltip="Goto Orders" placement="top"> <i class="fa-solid fa-arrow-up-right-from-square"></i> </a></p>
+
+</div>

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-profile',
@@ -6,10 +9,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
+  user: User = new User();
+  id: any;
+  isEditable: boolean;
 
-  constructor() { }
+  constructor(private service: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.service.getUserById(String(this.id)).subscribe(x => this.user = x);
+    if (this.id == null) {
+      this.isEditable = false
+    } else {
+      this.isEditable = true
+    }
   }
 
 }

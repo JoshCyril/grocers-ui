@@ -5,13 +5,14 @@
     <div class="container">
       <!-- Navbar brand -->
       <a class="navbar-brand me-2" routerLink="/home">
-        <img
+        <!-- <img
           src="../../../assets/img/Grocers Logo full.png"
           height="45"
           alt=""
           loading="lazy"
           style="margin-top: -1px;"
-        />
+        /> -->
+        <span class="fw-bold fs-3 text-secondary">Grocers</span> 
       </a>
   
       <!-- Toggle button -->
@@ -38,19 +39,25 @@
 
 
         <div *ngIf="!getVal()" class="d-flex align-items-center">
-          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 mx-4" routerLink="/signin">
-            Sign In</button>
-          <button type="button" class="btn btn-secondary btn-rounded me-3" routerLink="/signup">
-            Sign up for free</button>
+          <a routerLink="/signin" class="me-3">
+            <button type="button" class="btn btn-outline-secondary btn-rounded" >Sign In</button>
+          </a>
+
+          <a routerLink="/signup">
+            <button type="button" class="btn btn-secondary btn-rounded" >Sign up for free</button>
+          </a>
+            
         </div>
 
         <div *ngIf="getVal()" class="d-flex align-items-center">
 
-          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 mx-4" routerLink="/store">
-            Store</button>
+          <a routerLink="/store" class="me-3">
+            <button type="button" class="btn btn-outline-secondary btn-rounded ">Store</button>
+          </a>
 
-          <button type="button" class="btn btn-outline-secondary btn-rounded px-3 me-4" routerLink="/store">
-            Orders</button>
+          <a routerLink="/orders/{{uid}}" class="me-3">
+            <button type="button" class="btn btn-outline-secondary btn-rounded ">Orders</button>
+          </a>
 
           <!-- Badge -->
           <ul class="navbar-nav">
@@ -64,7 +71,7 @@
           
           <div mdbDropdown class="dropdown">
             <button
-              class="btn btn-link btn-rounded dropdown-toggle px-4 mx-3"
+              class="btn btn-link btn-rounded dropdown-toggle px-4 mx-3 link-secondary"
               type="button"
               id="dropdownMenu2"
               mdbDropdownToggle
@@ -74,7 +81,7 @@
             </button>
             <ul mdbDropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenu2">
               <hr class="hr hr-blurry" />
-              <li><button class="dropdown-item" type="button" routerLink="/profile"><i class="fa-solid fa-user me-2"></i>View Profile</button></li>
+              <li><button class="dropdown-item" type="button" routerLink="/profile/{{uid}}"><i class="fa-solid fa-user me-2"></i>View Profile</button></li>
               <div *ngIf="isUserAdmin()">
                 <hr class="hr hr-blurry" />
                 <button class="dropdown-item" type="button" routerLink="/e/users"><i class="fa-solid fa-user-pen me-2"></i>Edit Users</button>
