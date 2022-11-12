@@ -11,13 +11,15 @@ export class FooterComponent implements OnInit {
   msgTitle: string | null = "Hello";
   msgText: string | null = "👋";
   msgUpdate: string | null = "true";
+
+
   constructor() { }
 
   ngOnInit(): void {
-    localStorage.setItem('g_msg_color', this.msgColor as any)
-    localStorage.setItem('g_msg_title', this.msgTitle as any)
-    localStorage.setItem('g_msg_text', this.msgText as any)
-    localStorage.setItem('g_msg_update', "true")
+    // localStorage.setItem('g_msg_color', this.msgColor as any)
+    // localStorage.setItem('g_msg_title', this.msgTitle as any)
+    // localStorage.setItem('g_msg_text', this.msgText as any)
+    // localStorage.setItem('g_msg_update', "true")
   }
 
   closeBtn() {

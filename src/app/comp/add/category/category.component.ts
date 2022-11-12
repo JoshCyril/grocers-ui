@@ -52,8 +52,8 @@ export class CategoryComponent implements OnInit {
     else {
       console.log(this.category)
       if (this.isEditable) {
-        this.service.modifyCategory(this.category, String(this.id)).subscribe(x => console.log(x, 'category modified'));
-        this.router.navigate(['e/categories']);
+        this.service.modifyCategory(this.category, String(this.id)).subscribe(x => { console.log(x, 'category modified'); location.href = 'e/categories' });
+        // this.router.navigate(['e/categories']);
 
         // update message
         localStorage.setItem('g_msg_update', "true")
@@ -61,8 +61,8 @@ export class CategoryComponent implements OnInit {
         localStorage.setItem('g_msg_title', "Updated:")
         localStorage.setItem('g_msg_text', "Category")
       } else {
-        this.service.addCategory(this.category).subscribe(x => console.log(x, 'category added'));
-        this.router.navigate(['e/categories']);
+        this.service.addCategory(this.category).subscribe(x => { console.log(x, 'category added'); location.href = 'e/categories' });
+        // this.router.navigate(['e/categories']);
         // update message
         localStorage.setItem('g_msg_update', "true")
         localStorage.setItem('g_msg_color', "primary")
