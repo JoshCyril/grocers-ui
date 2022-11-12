@@ -1,1 +1,37 @@
-<p>categories works!</p>
+<div class="container mb-5">
+    <button class="btn btn-outline-secondary fw-bold" routerLink="/a/category" mdbTooltip="Add New Category" placement="right"><i class="fa-solid fa-plus"></i></button>
+    <table class="table table-bordered table-striped caption-top align-middle mb-5">
+        <caption>
+            <p class="fw-bold fs-3 mb-2"> List of <span class="text-secondary">category</span></p>
+        </caption>
+        <thead class="bg-dark text-light">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of category; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{u.name}}</td>
+                <td>
+                    <img
+                    src="{{u.imgUrl}}"
+                    height="150"
+                    width="auto"
+                    alt="No Image"/>
+                    
+                </td>
+                <td>
+                    <a routerLink="/a/category/{{u._id}}">
+                        <button class="btn btn-outline-secondary btn-rounded" mdbTooltip="Edit Category" placement="top"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </a>
+                    &nbsp;
+                    <button class="btn btn-outline-danger btn-rounded" (click)="delete(u._id)" mdbTooltip="Delete Category" placement="top"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

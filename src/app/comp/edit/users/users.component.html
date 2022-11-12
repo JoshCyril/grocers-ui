@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mb-5">
     <button class="btn btn-outline-secondary fw-bold" routerLink="/a/user" mdbTooltip="Add New User" placement="right"><i class="fa-solid fa-plus"></i></button>
     <table class="table table-bordered table-striped caption-top align-middle mb-5">
         <caption>
@@ -6,6 +6,7 @@
         </caption>
         <thead class="bg-dark text-light">
             <tr>
+                <th>No.</th>
                 <th>UserName</th>
                 <th>Email ID</th>
                 <th>is Admin?</th>
@@ -13,7 +14,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let u of users">
+            <tr *ngFor="let u of users; let i = index">
+                <td>{{i+1}}</td>
                 <td>{{u.name}}</td>
                 <td>
                     <p class="fw-normal mb-1">{{u.email}}</p>

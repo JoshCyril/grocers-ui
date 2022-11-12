@@ -25,7 +25,7 @@ import { SigninComponent } from './comp/signin/signin.component';
 import { HeaderComponent } from './comp/header/header.component';
 import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModelCartComponent } from './comp/model-cart/model-cart.component';
 import { ProfileComponent } from './comp/profile/profile.component';
 
@@ -74,7 +74,8 @@ import { CategoryComponent } from './comp/add/category/category.component';
     MdbValidationModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

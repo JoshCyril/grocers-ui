@@ -1,1 +1,205 @@
-<p>product works!</p>
+<div class="container row mb-5">
+    <div class="col-md-6 offset-3">
+        <p class="text-secondary fs-3 fw-bold mb-4">
+            <span *ngIf="!isEditable">Add New Product</span>
+            <span *ngIf="isEditable">Modify Product</span>
+        </p>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">    
+
+            <!-- ! name -->
+            <div class="form-group mb-4">
+                <mdb-form-control>
+                    <input mdbInput type="text" 
+                    formControlName="name" 
+                    id="formControlDefault1" 
+                    [(ngModel)]="product.name" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid':submitted && form['name'].errors}" />
+                    <label mdbLabel class="form-label" for="formControlDefault1">Name</label>
+                
+                    <div *ngIf="submitted && form['name'].errors" class="invalid-feedback ms-2">
+                        <div *ngIf="form['name'].errors['required']">
+                            Name can't be blank
+                        </div>
+                    </div>
+
+            </mdb-form-control>
+            </div>
+            
+             <!-- ! description -->
+            <div class="form-group mb-4">
+                <mdb-form-control>
+                    <input mdbInput type="text" 
+                    formControlName="description" 
+                    id="formControlDefault2" 
+                    [(ngModel)]="product.description" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid':submitted && form['description'].errors}" />
+                    <label mdbLabel class="form-label" for="formControlDefault2">Description</label>
+                
+                    <div *ngIf="submitted && form['description'].errors" class="invalid-feedback ms-2">
+                        <div *ngIf="form['description'].errors['required']">
+                            Description can't be blank
+                        </div>
+                    </div>
+
+            </mdb-form-control>
+            </div>
+
+            <!-- ! price -->
+            <div class="form-group mb-4">
+                <mdb-form-control>
+                    <input mdbInput type="number" 
+                    formControlName="price" 
+                    id="formControlDefault6" 
+                    [(ngModel)]="product.price" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid':submitted && form['price'].errors}" />
+                    <label mdbLabel class="form-label" for="formControlDefault6">Price</label>
+                
+                    <div *ngIf="submitted && form['price'].errors" class="invalid-feedback ms-2">
+                        <div *ngIf="form['price'].errors['required']">
+                            Price can't be 0 (or) blank.
+                        </div>
+                    </div>
+    
+                </mdb-form-control>
+                </div>
+
+            <!-- ! quantity -->
+            <div class="form-group mb-4">
+            <mdb-form-control>
+                <input mdbInput type="number" 
+                formControlName="quantity" 
+                id="formControlDefault3" 
+                [(ngModel)]="product.quantity" 
+                class="form-control" 
+                [ngClass]="{'is-invalid':submitted && form['quantity'].errors}" />
+                <label mdbLabel class="form-label" for="formControlDefault3">Quantity</label>
+            
+                <div *ngIf="submitted && form['quantity'].errors" class="invalid-feedback ms-2">
+                    <div *ngIf="form['quantity'].errors['required']">
+                        Quantity can't be 0 (or) blank.
+                    </div>
+                </div>
+
+            </mdb-form-control>
+            </div>
+
+            <!-- ! discount ? -->
+            <div class="input-group mb-4">
+                <div class="input-group-text">
+                    <input class="form-check-input mt-0" 
+                    type="checkbox" 
+                    value="" 
+                    aria-label="Discount"
+                    [checked]="product.discount[0].isDiscounted"
+                    (change)='product.discount[0].isDiscounted = !product.discount[0].isDiscounted == false ? "false": "true"' />
+                </div>
+                <mdb-form-control>
+                <input 
+                type="number" 
+                class="form-control rounded" 
+                aria-label="Text input with checkbox"
+                mdbInput type="number" 
+                formControlName="percentage" 
+                id="formControlDefault4" 
+                [(ngModel)]="product.discount[0].percentage" 
+                [ngClass]="{'is-invalid':submitted && form['percentage'].errors}" />
+                <label mdbLabel class="form-label" for="formControlDefault4">Discount</label>
+                <div *ngIf="submitted && form['percentage'].errors" class="invalid-feedback ms-2">
+                    <div *ngIf="form['percentage'].errors['required']">
+                        Percentage can't be 0 (or) blank.
+                    </div>
+                </div>
+            </mdb-form-control>
+            </div>
+
+            <!-- ! Category -->
+            <div class="form-group mb-4">
+                <mdb-form-control>
+                <select  
+                    name="category_id" 
+                    id="category_id" 
+                    class="form-control"
+                    formControlName="category_id"
+                    [(ngModel)]="product.category_id"
+                    >
+                    <!--  -->
+                    <option 
+                    *ngFor="let method of CategoryObject" 
+                    [value]="method._id">{{ method.name }}</option>
+                </select>
+            </mdb-form-control>
+            </div>
+
+            <div class="mb-4">
+                <span *ngFor="let imgS of imgArr">
+                    <img
+                    src="{{imgS}}"
+                    height="100"
+                    alt="No Image"
+                    />
+                    <div class="vr mx-2" style="height: 100px;"></div>
+                </span>
+                
+            </div>
+
+            <!-- ! imgUrls -->
+            <div class="form-group mb-4">
+                <mdb-form-control>
+                    <input mdbInput type="text" 
+                    formControlName="imgUrls" 
+                    id="formControlDefault5" 
+                    [(ngModel)]="product.imgUrls" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid':submitted && form['imgUrls'].errors}"
+                    (ngModelChange)='onChange($event)'
+                    />
+                    <label mdbLabel class="form-label" for="formControlDefault5">Image Urls</label>
+                
+                    <div *ngIf="submitted && form['imgUrls'].errors" class="invalid-feedback ms-2">
+                        <div *ngIf="form['imgUrls'].errors['required']">
+                            imgUrls can't be blank.
+                        </div>
+                    </div>
+
+                </mdb-form-control>
+            </div>
+
+            <!-- ! tags -->
+            <div class="form-group mb-4">
+                <mdb-form-control>
+                    <input mdbInput type="text" 
+                    formControlName="tags" 
+                    id="formControlDefault6" 
+                    [(ngModel)]="product.tags" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid':submitted && form['tags'].errors}" />
+                    <label mdbLabel class="form-label" for="formControlDefault6">Tags</label>
+                
+                    <div *ngIf="submitted && form['tags'].errors" class="invalid-feedback ms-2">
+                        <div *ngIf="form['tags'].errors['required']">
+                            Tags can't be blank.
+                        </div>
+                    </div>
+
+                </mdb-form-control>
+            </div>
+
+            <div class="form-group">
+                <span class="me-3">
+                    <button class="btn btn-outline-secondary btn-rounded" routerLink="/e/products">Back</button>
+                </span>
+                <button class="btn btn-secondary btn-rounded">
+                    <span *ngIf="!isEditable">Add</span>
+                    <span *ngIf="isEditable">Modify</span>
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
