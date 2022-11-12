@@ -27,6 +27,15 @@ import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.comp
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelCartComponent } from './comp/model-cart/model-cart.component';
+import { ProfileComponent } from './comp/profile/profile.component';
+
+import { UsersComponent } from './comp/edit/users/users.component';
+import { ProductsComponent } from './comp/edit/products/products.component';
+import { CategoriesComponent } from './comp/edit/categories/categories.component';
+
+import { UserComponent } from './comp/add/user/user.component';
+import { ProductComponent } from './comp/add/product/product.component';
+import { CategoryComponent } from './comp/add/category/category.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +45,14 @@ import { ModelCartComponent } from './comp/model-cart/model-cart.component';
     SigninComponent,
     HeaderComponent,
     PageNotFoundComponent,
-    ModelCartComponent
+    ModelCartComponent,
+    UsersComponent,
+    ProductsComponent,
+    CategoriesComponent,
+    ProfileComponent,
+    UserComponent,
+    ProductComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

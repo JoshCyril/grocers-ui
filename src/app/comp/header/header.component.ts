@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('g_uid')
     localStorage.removeItem('g_uname')
     localStorage.removeItem('g_uadmin')
+    this.router.navigate(['home']);
     return true
   }
 

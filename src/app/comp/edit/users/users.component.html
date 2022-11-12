@@ -1,0 +1,41 @@
+<div class="container">
+    <button class="btn btn-outline-secondary fw-bold" routerLink="/a/user" mdbTooltip="Add New User" placement="right"><i class="fa-solid fa-plus"></i></button>
+    <table class="table table-bordered table-striped caption-top align-middle mb-5">
+        <caption>
+            <p class="fw-bold fs-3 mb-2"> List of <span class="text-secondary">users</span></p>
+        </caption>
+        <thead class="bg-dark text-light">
+            <tr>
+                <th>UserName</th>
+                <th>Email ID</th>
+                <th>is Admin?</th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of users">
+                <td>{{u.name}}</td>
+                <td>
+                    <p class="fw-normal mb-1">{{u.email}}</p>
+                    <!-- <p class="text-muted mb-0">{{u.password}}</p> -->
+                </td>
+                <td>
+                    <div *ngIf="!u.isAdmin == false">
+                        <span class="badge badge-success rounded-pill d-inline">Admin</span>
+                    </div>
+                </td>
+                <td>
+                    <a routerLink="/profile/{{u._id}}">
+                        <button class="btn btn-link btn-rounded" mdbTooltip="View Profile" placement="top"><i class="fa-solid fa-eye"></i></button>
+                    </a>
+                    &nbsp;
+                    <a routerLink="/a/user/{{u._id}}">
+                        <button class="btn btn-outline-secondary btn-rounded" mdbTooltip="Edit User" placement="top"><i class="fa-solid fa-pen-to-square"></i></button>
+                    </a>
+                    &nbsp;
+                    <button class="btn btn-outline-danger btn-rounded" (click)="delete(u._id)" mdbTooltip="Delete User" placement="top"><i class="fa-solid fa-trash"></i></button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

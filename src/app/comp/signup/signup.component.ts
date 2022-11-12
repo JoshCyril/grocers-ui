@@ -56,11 +56,9 @@ export class SignupComponent implements OnInit {
         //return;
       }
     });
-    console.log(this.isUserExist, this.forUser, this.userExistMsg)
     if (this.registerForm.invalid)
       return;
     else {
-      console.log(this.user)
       if (!this.isUserExist) {
         this.service.addUser(this.user).subscribe(x => console.log(x));
         this.router.navigate(['login']);

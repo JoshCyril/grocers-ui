@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ProductComponent } from './comp/add/product/product.component';
+import { UserComponent } from './comp/add/user/user.component';
+import { CategoriesComponent } from './comp/edit/categories/categories.component';
+import { CategoryComponent } from './comp/add/category/category.component';
+import { ProductsComponent } from './comp/edit/products/products.component';
+import { UsersComponent } from './comp/edit/users/users.component';
 import { HomeComponent } from './comp/home/home.component';
 import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.component';
 import { SigninComponent } from './comp/signin/signin.component';
@@ -34,6 +40,18 @@ const routes: Routes = [
     title: appNameTitle + ' - Sign Up',
     component: SignupComponent
   },
+  { path: "e/users", title: appNameTitle + ' - Edit Users', component: UsersComponent },
+  { path: "e/products", title: appNameTitle + ' - Edit Products', component: ProductsComponent },
+  { path: "e/categories", title: appNameTitle + ' - Edit Categories', component: CategoriesComponent },
+
+  { path: "a/user/:id", title: appNameTitle + ' - Add User', component: UserComponent },
+  { path: "a/product/:id", title: appNameTitle + ' - Add Product', component: ProductComponent },
+  { path: "a/category/:id", title: appNameTitle + ' - Add Category', component: CategoryComponent },
+
+  { path: "a/user", title: appNameTitle + ' - Add User', component: UserComponent },
+  { path: "a/product", title: appNameTitle + ' - Add Product', component: ProductComponent },
+  { path: "a/category", title: appNameTitle + ' - Add Category', component: CategoryComponent },
+
   {
     path: "**",
     component: PageNotFoundComponent

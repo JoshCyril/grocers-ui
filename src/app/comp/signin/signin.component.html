@@ -1,37 +1,40 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-3">
-            <h2 class="text-secondary">Sign In</h2>
+            <p class="text-secondary fs-3 fw-bold mb-4">Sign In</p>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <label>Login ID</label>
-                    <input type="text" placeholder="Username or Email ID" formControlName="name" class="form-control" [(ngModel)]="user"
-                    [ngClass]="{'is-invalid':submitted && form['name'].errors}">
 
-                    <div *ngIf="submitted && form['name'].errors" class="invalid-feedback">
-                        <div *ngIf="form['name'].errors['required']">
-                            Can't be blank
+                <div class="form-group mb-4">
+                    <mdb-form-control>
+                        <input mdbInput type="text" formControlName="name" id="formControlDefault" [(ngModel)]="user" class="form-control" [(ngModel)]="user" [ngClass]="{'is-invalid':submitted && form['name'].errors}" />
+                        <label mdbLabel class="form-label" for="formControlDefault">Username or Email ID</label>
+
+                        <div *ngIf="submitted && form['name'].errors" class="invalid-feedback ms-2">
+                            <div *ngIf="form['name'].errors['required']">
+                                Can't be blank
+                            </div>
                         </div>
-                    </div>
+                </mdb-form-control>
                 </div>
                 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" formControlName="password" class="form-control"
-                    [ngClass]="{'is-invalid':submitted && form['password'].errors}" [(ngModel)]="password">
-                    <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
-                        <div *ngIf="form['password'].errors['required']">
-                            Can't be blank
+                <div class="form-group mb-4">
+                    <mdb-form-control>
+                        <input mdbInput type="password" formControlName="password" id="formControlDefault" class="form-control" [ngClass]="{'is-invalid':submitted && form['password'].errors}" [(ngModel)]="password" />
+                        <label mdbLabel class="form-label" for="formControlDefault">Password</label>
+    
+                        <div *ngIf="submitted && form['password'].errors" class="invalid-feedback ms-2">
+                            <div *ngIf="form['password'].errors['required']">
+                                Password can't be blank
+                            </div>
+                            <div *ngIf="form['password'].errors['minlength']" class="ms-2">
+                                Password must have atleast 8 character
+                            </div>
                         </div>
-                        <div *ngIf="form['password'].errors['minlength']">
-                            Password must have atleast 8 character
-                        </div>
-                    </div>
+                </mdb-form-control>
                 </div>
-                
-                <br>
+
                 <div class="form-group">
-                    <button class="btn btn-secondary">Sign In</button>
+                    <button class="btn btn-secondary btn-rounded">Let's Go</button>
                 </div>
             </form>
         </div>

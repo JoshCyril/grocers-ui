@@ -1,6 +1,9 @@
 <div class="container row">
     <div class="col-md-6 offset-3">
-         <p class="text-secondary fs-3 fw-bold mb-4">Sign Up</p>
+        <p class="text-secondary fs-3 fw-bold mb-4">
+            <span *ngIf="!isEditable">Add New User</span>
+            <span *ngIf="isEditable">Modify User</span>
+        </p>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group mb-4">
                 <mdb-form-control>
@@ -37,7 +40,7 @@
             </mdb-form-control>
             </div>
 
-            <div class="form-group mb-4">
+            <div *ngIf="!isEditable" class="form-group mb-4">
                 <mdb-form-control>
                     <input mdbInput type="password" formControlName="password" id="formControlDefault" class="form-control" [ngClass]="{'is-invalid':submitted && form['password'].errors}" [(ngModel)]="user.password" />
                     <label mdbLabel class="form-label" for="formControlDefault">Password</label>
@@ -70,8 +73,15 @@
 
             </div>
 
+
             <div class="form-group">
-                <button class="btn btn-secondary btn-rounded">Add Me</button>
+                <span *ngIf="isEditable" class="me-3">
+                    <button class="btn btn-outline-secondary btn-rounded" routerLink="/e/users">Back</button>
+                </span>
+                <button class="btn btn-secondary btn-rounded">
+                    <span *ngIf="!isEditable">Add</span>
+                    <span *ngIf="isEditable">Modify</span>
+                </button>
             </div>
         </form>
     </div>

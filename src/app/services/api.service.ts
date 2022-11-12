@@ -36,7 +36,7 @@ export class ApiService {
     return this.http.get<User[]>(this.baseUrl + "all" + "?_db=" + this.dbUser);
   }
   getUserById(id: string): Observable<User> {
-    return this.http.get<User>(this.baseUrl + id);
+    return this.http.get<User>(this.baseUrl + id + "?_db=" + this.dbUser);
   }
   removeUserById(id: string) {
     return this.http.delete(this.baseUrl + "remove/" + id + "?_db=" + this.dbUser);
