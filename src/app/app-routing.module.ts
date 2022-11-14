@@ -11,6 +11,7 @@ import { PageNotFoundComponent } from './comp/page-not-found/page-not-found.comp
 import { SigninComponent } from './comp/signin/signin.component';
 import { SignupComponent } from './comp/signup/signup.component';
 import { ProfileComponent } from './comp/profile/profile.component';
+import { ShopComponent } from './comp/shop/shop.component';
 
 const appNameTitle = "Grocers"
 
@@ -41,6 +42,9 @@ const routes: Routes = [
     title: appNameTitle + ' - Sign Up',
     component: SignupComponent
   },
+  { path: "shop", title: appNameTitle + ' - Shop', component: ShopComponent },
+  { path: "shop/:id", title: appNameTitle + ' - Shop by Category', component: ShopComponent },
+
   { path: "e/users", title: appNameTitle + ' - Edit Users', component: UsersComponent },
   { path: "e/products", title: appNameTitle + ' - Edit Products', component: ProductsComponent },
   { path: "e/categories", title: appNameTitle + ' - Edit Categories', component: CategoriesComponent },

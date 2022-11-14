@@ -35,11 +35,16 @@
                         src="{{imgS}}"
                         height="100"
                         alt="No Image"
+                        class="me-2"
                         />
-                        <div class="vr mx-2" style="height: 100px;"></div>
                     </span>
                 </td>
-                <td>{{u.tags}}</td>
+                <td>
+                    <span *ngFor="let tag of u.tags">
+                        <span class="badge badge-secondary rounded-pill d-inline me-2">{{tag}}</span>
+                    </span>
+                    
+                </td>
                 <td>
                     <a routerLink="/a/product/{{u._id}}">
                         <button class="btn btn-outline-secondary btn-rounded" mdbTooltip="Edit Product" placement="top"><i class="fa-solid fa-pen-to-square"></i></button>

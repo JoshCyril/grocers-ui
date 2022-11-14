@@ -7,7 +7,32 @@
       (click)="modalRef.close()"
     ></button>
   </div>
-  <div class="modal-body">...</div>
+  <div class="modal-body">
+    <table class="table table-striped caption-top align-middle mb-5">
+      <thead class="bg-light text-dark">
+          <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Operations</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let u of cartItems; let i = index">
+              <td>{{i+1}}</td>
+              <td>{{u.name}}</td>
+              <td>
+                  <p class="fw-normal mb-1">{{u.price}}</p>
+                  <!-- <p class="text-muted mb-0">{{u.password}}</p> -->
+              </td>
+              <td>
+                  &nbsp;
+                  <button class="btn btn-outline-danger btn-rounded" (click)="removeItem(i)" mdbTooltip="Delete User" placement="top"><i class="fa-solid fa-trash"></i></button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary btn-rounded" (click)="modalRef.close()">
       Back

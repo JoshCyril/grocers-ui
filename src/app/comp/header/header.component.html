@@ -51,8 +51,8 @@
 
         <div *ngIf="getVal()" class="d-flex align-items-center">
 
-          <a routerLink="/store" class="me-3">
-            <button type="button" class="btn btn-outline-secondary btn-rounded ">Store</button>
+          <a routerLink="/shop" class="me-3">
+            <button type="button" class="btn btn-outline-secondary btn-rounded ">Shop</button>
           </a>
 
           <a routerLink="/orders/{{uid}}" class="me-3">
@@ -63,7 +63,7 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link" (click)="openModal()">
-                <span class="badge badge-pill bg-danger">0</span>
+                <span class="badge badge-pill bg-danger">{{getCartItems()}}</span>
                 <span><i class="fas fa-shopping-cart"></i></span>
               </a>
             </li>

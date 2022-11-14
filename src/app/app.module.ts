@@ -37,6 +37,9 @@ import { UserComponent } from './comp/add/user/user.component';
 import { ProductComponent } from './comp/add/product/product.component';
 import { CategoryComponent } from './comp/add/category/category.component';
 import { FooterComponent } from './comp/footer/footer.component';
+import { ShopComponent } from './comp/shop/shop.component';
+
+import { SearchPipe } from './search.pipe';
 
 @NgModule({
   declarations: [
@@ -55,6 +58,8 @@ import { FooterComponent } from './comp/footer/footer.component';
     ProductComponent,
     CategoryComponent,
     FooterComponent,
+    ShopComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

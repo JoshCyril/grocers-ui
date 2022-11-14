@@ -78,9 +78,9 @@ export class ProductComponent implements OnInit {
     if (this.registerForm.invalid)
       return;
     else {
-      console.log(this.product.imgUrls[0], this.product.tags[0])
-      this.imgStr = this.product.imgUrls[0]
-      this.tagStr = this.product.tags[0]
+
+      this.imgStr = this.product.imgUrls.toString()
+      this.tagStr = this.product.tags.toString()
 
       this.imgArr = this.imgStr.toString().split(",");
       this.tagArr = this.tagStr.toString().split(",");
@@ -88,11 +88,9 @@ export class ProductComponent implements OnInit {
       this.product.imgUrls = JSON.parse(JSON.stringify(this.imgArr))
       this.product.tags = JSON.parse(JSON.stringify(this.tagArr))
 
-      console.log(this.product)
       if (this.isEditable) {
         this.service.modifyProduct(this.product, String(this.id)).subscribe(x => { console.log(x, 'product modified'); location.href = 'e/products' });
         // this.router.navigate(['e/products']);
-
         // update message
         localStorage.setItem('g_msg_update', "true")
         localStorage.setItem('g_msg_color', "primary")

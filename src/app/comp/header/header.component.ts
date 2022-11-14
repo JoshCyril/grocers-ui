@@ -71,4 +71,7 @@ export class HeaderComponent implements OnInit {
     }
 
   }
+  getCartItems() {
+    return localStorage.getItem('g_cart_count')
+  }
 }
