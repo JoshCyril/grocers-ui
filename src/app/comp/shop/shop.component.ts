@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GlobalConstants } from 'src/app/global-constants';
 import { ApiService } from 'src/app/services/api.service';
+import { iif } from 'rxjs';
 
 @Component({
   selector: 'app-shop',
@@ -13,6 +15,7 @@ export class ShopComponent implements OnInit {
   products: any;
   id: string | null;
   cat_name: string | null;
+  avaProduct: any;
 
   constructor(private router: Router, private service: ApiService, private route: ActivatedRoute) { }
 
@@ -66,10 +69,35 @@ export class ShopComponent implements OnInit {
   }
   addToCart(getProductId: string) {
     const ctrProduct = this.products.filter((x: { _id: string; }) => x._id === getProductId)
+
+    //percentage price
+    let F_Price = ""
+    if (ctrProduct[0].discount[0].isDiscounted) {
+
+      F_Price = (ctrProduct[0].price * ((100 - ctrProduct[0].discount[0].percentage) / 100)).toFixed(2);
+    } else {
+      F_Price = (ctrProduct[0].price).toFixed(2)
+    }
+    ctrProduct[0].quantity--
+    ctrProduct[0].NofItems = 1
+    ctrProduct[0].F_price = parseFloat(F_Price)
+
     //Add Cart
-    // const setCount: string | null = localStorage.getItem('g_cart_item')
-    // localStorage.setItem('g_cart_count', setCount + 1)
-    localStorage.setItem('g_cart_item', JSON.stringify(ctrProduct))
+    GlobalConstants.Cart_Items.push(ctrProduct[0])
+    GlobalConstants.cartCount++
+
+    //Duplicate product
+    this.avaProduct = GlobalConstants.Cart_Items
+    console.log(this.avaProduct);
+    for (let i = 0; i <= this.avaProduct.length - 1; i++) {
+      console.log(i + 1, this.avaProduct[i].name);
+      if (this.avaProduct[i]._id === getProductId && (this.avaProduct.length - 1 !== i)) {
+        console.log(i + 1, this.avaProduct[i].name);
+        this.avaProduct[i].NofItems++
+        GlobalConstants.Cart_Items.splice(GlobalConstants.Cart_Items.length - 1, 1);
+        GlobalConstants.cartCount--
+      }
+    }
 
     // update message
     localStorage.setItem('g_msg_update', "true")
