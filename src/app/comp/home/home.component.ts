@@ -18,8 +18,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
 
     if (localStorage.getItem("isFirstPulled") !== "true") {
+
       this.uid = sessionStorage.getItem('g_uid')
-      console.log(this.uid !== null, this.uid)
+      sessionStorage.setItem('g_cartItems', JSON.stringify([]));
+      sessionStorage.setItem('g_cartCount', JSON.stringify(0));
 
       localStorage.setItem('isFirstPulled', "true");
       // console.log("🔰", "Pulled from DB")
