@@ -10,6 +10,7 @@ import { GlobalConstants } from '../../global-constants';
   styleUrls: ['./model-cart.component.scss']
 })
 export class ModelCartComponent implements OnInit {
+  NoOfItems: number = 0;
   cartCount: any;
   cartItems: any;
   cartTotal: any
@@ -21,6 +22,7 @@ export class ModelCartComponent implements OnInit {
   ngOnInit(): void {
     this.cartItems = JSON.parse(sessionStorage.getItem("g_cartItems") as any)
     this.cartTotal = this.getTotal()
+    this.NoOfItems = parseInt(sessionStorage.getItem("g_cartCount") as any)
     sessionStorage.setItem("g_cartTotal", JSON.stringify(this.cartTotal));
   }
 
@@ -49,6 +51,7 @@ export class ModelCartComponent implements OnInit {
     this.cartTotal = this.getTotal()
     sessionStorage.setItem("g_cartTotal", JSON.stringify(this.cartTotal));
 
+    this.NoOfItems = parseInt(sessionStorage.getItem("g_cartCount") as any)
     this.itemDeleted = true;
   }
 

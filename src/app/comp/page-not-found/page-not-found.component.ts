@@ -12,10 +12,10 @@ export class PageNotFoundComponent implements OnInit {
 
   ngOnInit(): void {
     // update message
-    localStorage.setItem('g_msg_update', "true")
-    localStorage.setItem('g_msg_color', "danger")
-    localStorage.setItem('g_msg_title', "Go Back:")
-    localStorage.setItem('g_msg_text', "Click on the logo, top-left!")
+    sessionStorage.setItem('g_msg_update', "true")
+    sessionStorage.setItem('g_msg_color', "danger")
+    sessionStorage.setItem('g_msg_title', "Go Back:")
+    sessionStorage.setItem('g_msg_text', "Click on the logo, top-left!")
   }
 
 }

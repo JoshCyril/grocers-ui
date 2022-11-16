@@ -16,8 +16,11 @@ export class HomeComponent implements OnInit {
   categoryCnt: number = 0;
 
   ngOnInit(): void {
-    this.uid = sessionStorage.getItem('g_uid')
+
     if (localStorage.getItem("isFirstPulled") !== "true") {
+      this.uid = sessionStorage.getItem('g_uid')
+      console.log(this.uid !== null, this.uid)
+
       localStorage.setItem('isFirstPulled', "true");
       // console.log("🔰", "Pulled from DB")
       // ! g_Products
@@ -30,16 +33,23 @@ export class HomeComponent implements OnInit {
 
         if (this.uid !== null) {
           this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+
+          for (let k = 0; k <= this.products.length - 1; k++) {
+            this.products[k].isLiked = false
+          }
+
           this.service.getWishListsByUserId(this.uid).subscribe(Wishlist => {
             for (let i = 0; i <= Wishlist.length - 1; i++) {
               for (let j = 0; j <= this.products.length - 1; j++) {
                 if (this.products[j]._id === Wishlist[i].product_id) {
+                  this.products[j].w_id = Wishlist[i]._id
                   this.products[j].isLiked = Wishlist[i].isLiked
                 }
               }
             }
+            localStorage.setItem('g_Products', JSON.stringify(this.products));
           })
-          localStorage.setItem('g_Products', JSON.stringify(this.products));
+
         }
       })
 

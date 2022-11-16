@@ -132,8 +132,8 @@ export class ShopComponent implements OnInit {
     //~ update message
     sessionStorage.setItem('g_msg_update', "true")
     sessionStorage.setItem('g_msg_color', "secondary")
-    sessionStorage.setItem('g_msg_title', "Item:")
-    sessionStorage.setItem('g_msg_text', "Added to Cart")
+    sessionStorage.setItem('g_msg_title', "🛒:")
+    sessionStorage.setItem('g_msg_text', "Updated")
   }
 
   addOneItem(getProductId: string) {
@@ -233,9 +233,10 @@ export class ShopComponent implements OnInit {
   }
 
   changeOnClick(isl: boolean, p_id: string, w_id: string) {
+    console.log(isl, p_id, w_id)
     if (!isl) {
+      // ~ Add to wishlist - FALSE
       this.wishlist = {
-        _id: "",
         user_id: this.uid,
         product_id: p_id,
         isLiked: true
@@ -248,18 +249,22 @@ export class ShopComponent implements OnInit {
         this.products[Old_id].w_id = x._id
         this.products[Old_id].isLiked = true
         localStorage.setItem('g_Products', JSON.stringify(this.products));
+        location.href = this.router.url;
       });
-      return '<i class="fa-solid fa-heart fs-4"></i>'
 
-    } else {
 
-      this.service.removeWishListById(w_id);
-      //updated product
+    } else if (isl) {
+      // ~ Remove from wishlist - TRUE
+      this.service.removeWishListById(String(w_id)).subscribe(x => { });
+
       this.products = JSON.parse(localStorage.getItem("g_Products") as any)
       let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(p_id);
       this.products[Old_id].isLiked = false
+      this.products[Old_id].w_id = ""
       localStorage.setItem('g_Products', JSON.stringify(this.products));
-      return '<i class="fa-regular fa-heart fs-4"></i>'
+      location.href = this.router.url
+      //updated product
+
 
     }
   }

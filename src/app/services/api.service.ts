@@ -6,8 +6,8 @@ import { User } from '../models/user.model';
 import { UserDB } from '../models/userDB.model';
 import { Category } from '../models/category.model';
 import { Product } from '../models/product.model';
-import { Order } from '../models/order.model';
-import { Wishlist } from '../models/wishlist.model';
+import { Order, OrderN } from '../models/order.model';
+import { Wishlist, WishlistN } from '../models/wishlist.model';
 
 
 @Injectable({
@@ -87,8 +87,8 @@ export class ApiService {
   getAllOrdersById(id: string): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + "order" + "?_db=" + this.dbOrder + "&id=" + id);
   }
-  getOrdersByUserId(uid: string): Observable<Order[]> {
-    return this.http.get<Order[]>(this.baseUrl + "u/" + uid + "?_db=" + this.dbOrder);
+  getOrdersByUserId(uid: string): Observable<OrderN[]> {
+    return this.http.get<OrderN[]>(this.baseUrl + "u/" + uid + "?_db=" + this.dbOrder);
   }
   removeOrderById(id: string) {
     return this.http.delete(this.baseUrl + "remove/" + id + "?_db=" + this.dbOrder);
@@ -102,19 +102,19 @@ export class ApiService {
 
   // ! WishList --------------
   getAllWishListById(id: string): Observable<Wishlist[]> {
-    return this.http.get<Wishlist[]>(this.baseUrl + "wishlist" + "?_db=" + this.dbOrder + "&id=" + id);
+    return this.http.get<Wishlist[]>(this.baseUrl + "wishlist" + "?_db=" + this.dbWishlist + "&id=" + id);
   }
-  getWishListsByUserId(uid: string): Observable<Wishlist[]> {
-    return this.http.get<Wishlist[]>(this.baseUrl + "u/" + uid + "?_db=" + this.dbOrder);
+  getWishListsByUserId(uid: string): Observable<WishlistN[]> {
+    return this.http.get<WishlistN[]>(this.baseUrl + "u/" + uid + "?_db=" + this.dbWishlist);
   }
   removeWishListById(id: string) {
-    return this.http.delete(this.baseUrl + "remove/" + id + "?_db=" + this.dbOrder);
+    return this.http.delete(this.baseUrl + "remove/" + id + "?_db=" + this.dbWishlist);
   }
   addWishList(wishlist: Wishlist) {
-    return this.http.post(this.baseUrl + "add" + "?_db=" + this.dbOrder, wishlist);
+    return this.http.post(this.baseUrl + "add" + "?_db=" + this.dbWishlist, wishlist);
   }
   modifyWishList(wishlist: Wishlist, id: string) {
-    return this.http.put(this.baseUrl + "modify/" + id + "?_db=" + this.dbOrder, wishlist);
+    return this.http.put(this.baseUrl + "modify/" + id + "?_db=" + this.dbWishlist, wishlist);
   }
 
 }

@@ -35,7 +35,9 @@
                 <div class="card text-center">
                 <div class="card-header p-0" style="background-color: #fff0ff;">
                     <div class="d-flex justify-content-start ps-3 pt-3 pb-2">
-                        <button type="button" class="btn btn-link link-secondary btn-floating" (click)="changeOnClick(product.isliked, product._id, product.w_id)">
+                        <button type="button" class="btn btn-link link-secondary btn-floating" (click)="changeOnClick(product.isLiked, product._id, product.w_id)">
+                            <span *ngIf="product.isLiked"><i class="fa-solid fa-heart fs-4"></i></span>
+                            <span *ngIf="!product.isLiked"><i class="fa-regular fa-heart fs-4"></i></span>
                         </button>
                         <span class="px-3">{{ findCategoryName(product.category_id)}}</span>
                     </div>
@@ -70,8 +72,23 @@
                         <span class="badge badge-secondary rounded-pill d-inline me-2">{{tag}}</span>
                     </span>
             </div>
+            
+           
+                </div>
+                  <!-- the case where the pipe returns an empty array  -->
+                <!-- <ng-container *ngIf="!ProductObject.length" [ngTemplateOutlet]="noItems"></ng-container> -->
             </div>
-        </div>
+            <!-- <ng-template #noItems>no Items</ng-template> -->
+            <div class="no-item p-5 text-center"> 
+                <span class="text-black-50 fs-5 fw-normal">Product is not available</span> 
+                <br>
+                <img
+                src="../../../assets/img/no-products.png"
+                class="flt-img"
+                width="100"
+                alt="..."
+                />
+            </div>
         </div>
     </div>
     <div class="col-1"></div>

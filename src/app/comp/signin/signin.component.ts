@@ -47,8 +47,10 @@ export class SigninComponent implements OnInit {
         sessionStorage.setItem('g_uid', x._id)
         sessionStorage.setItem('g_uname', x.name)
         sessionStorage.setItem('g_uadmin', x.isAdmin)
+        location.href = '/home'
       });
-      this.router.navigate(['home']);
+
+      // this.router.navigate(['home']);
 
       // update message
       sessionStorage.setItem('g_msg_update', "true")

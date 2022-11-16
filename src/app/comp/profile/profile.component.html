@@ -17,10 +17,43 @@
 
     <hr class="hr hr-blurry" />
 
-    <p class="fw-bold fs-4 my-3">WishList <a routerLink="/wishlist/{{user._id}}" class="link-dark ms-2 fs-6" mdbTooltip="Goto Wishlists" placement="top"> <i class="fa-solid fa-arrow-up-right-from-square"></i> </a></p>
+    <p class="fw-bold fs-4 my-3">WishList</p>
+
+    <table class="table table-striped align-middle mb-2 table-sm">
+        <thead class="bg-light text-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of wishlist; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{findProductName(u.product_id)}}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <hr class="hr hr-blurry" />
 
     <p class="fw-bold fs-4 my-3">Orders  <a routerLink="/orders/{{user._id}}" class="link-dark ms-2 fs-6" mdbTooltip="Goto Orders" placement="top"> <i class="fa-solid fa-arrow-up-right-from-square"></i> </a></p>
+    <table class="table table-striped align-middle mb-2 table-sm">
+        <thead class="bg-light text-dark">
+            <tr>
+                <th>#</th>
+                <th>Items</th>
+                <th>Total Amount</th>
+                <th>Order At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of order; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{u.products}}</td>
+                <td>{{u.totalAmount}}</td>
+                <td>{{u.createdAt}}</td>
+            </tr>
+        </tbody>
+    </table>
 
 </div>

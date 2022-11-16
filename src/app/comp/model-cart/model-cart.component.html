@@ -1,5 +1,5 @@
-<div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Your Cart</h5>
+<div class="modal-header" style="background-color: #fff0ff;">
+    <h5 class="modal-title" id="exampleModalLabel">Your Cart | {{NoOfItems}}</h5>
     <button
       type="button"
       class="btn-close"
@@ -8,7 +8,7 @@
     ></button>
   </div>
   <div class="modal-body">
-    <table class="table table-striped caption-top align-middle mb-2">
+    <table class="table table-striped table-hover caption-top align-middle mb-2">
       <thead class="bg-light text-dark">
           <tr>
               <th>#</th>
@@ -35,6 +35,19 @@
                   </button>
               </td>
           </tr>
+          <tr *ngIf="NoOfItems <= 0">
+            <td colspan="5">
+                <div class="text-center"> 
+                    <span class="text-black-50 fs-5 fw-normal me-4">Cart is Empty</span> 
+                    <img
+                    src="../../../assets/img/carts.png"
+                    class="flt-img"
+                    width="80"
+                    alt="..."
+                    />
+                </div>
+            </td>
+          </tr>
       </tbody>
   </table>
   </div>
@@ -43,6 +56,6 @@
           Total Amount: <p class="fw-bold ms-3">₹{{cartTotal}}</p>
         </div>
       <div class="d-flex p-2">
-          <button type="button" class="btn btn-secondary btn-rounded ms-3">Checkout</button>
+          <button type="button" class="btn btn-secondary btn-rounded ms-3" [ngClass]="NoOfItems <= 0?'disabled':''">Checkout</button>
       </div>
   </div>
