@@ -23,21 +23,21 @@ export class FooterComponent implements OnInit {
   }
 
   closeBtn() {
-    localStorage.setItem('g_msg_update', "false")
-    localStorage.setItem('g_msg_color', "")
-    localStorage.setItem('g_msg_title', "")
-    localStorage.setItem('g_msg_text', "")
+    sessionStorage.setItem('g_msg_update', "false")
+    sessionStorage.setItem('g_msg_color', "")
+    sessionStorage.setItem('g_msg_title', "")
+    sessionStorage.setItem('g_msg_text', "")
     this.isClosed = true
   }
 
   updateMsg() {
 
-    this.msgUpdate = localStorage.getItem('g_msg_update')
+    this.msgUpdate = sessionStorage.getItem('g_msg_update')
 
     if (this.msgUpdate === "true") {
-      this.msgColor = localStorage.getItem('g_msg_color')
-      this.msgTitle = localStorage.getItem('g_msg_title')
-      this.msgText = localStorage.getItem('g_msg_text')
+      this.msgColor = sessionStorage.getItem('g_msg_color')
+      this.msgTitle = sessionStorage.getItem('g_msg_title')
+      this.msgText = sessionStorage.getItem('g_msg_text')
       this.isClosed = false
       return true
     } else {

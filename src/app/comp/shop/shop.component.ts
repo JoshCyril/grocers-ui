@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GlobalConstants } from 'src/app/global-constants';
 import { ApiService } from 'src/app/services/api.service';
 import { iif } from 'rxjs';
+import { Wishlist } from 'src/app/models/wishlist.model';
 
 @Component({
   selector: 'app-shop',
@@ -17,25 +18,32 @@ export class ShopComponent implements OnInit {
   cat_name: string | null;
   avaProduct: any;
   isItemAdded: boolean = false;
+  cartItems: string[] = [];
+  cartCount: any;
+  isIDEnabled: boolean = false;
+  wishlist: Wishlist = new Wishlist();
+  uid: any;
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+
+  constructor(private router: Router, private route: ActivatedRoute, private service: ApiService) { }
 
   title = 'instant-search';
   public searchInput: string;
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
+    this.uid = sessionStorage.getItem('g_uid')
 
     this.products = JSON.parse(localStorage.getItem("g_Products") as any)
     this.CategoryObject = JSON.parse(localStorage.getItem("g_Categories") as any)
 
     if (this.id == null) {
-
+      this.isIDEnabled = false
       this.ProductObject = this.products
       this.cat_name = "All Products"
 
     } else {
-
+      this.isIDEnabled = true
       this.ProductObject = this.products.filter((u: { category_id: string | null; }) => u.category_id === this.id)
       this.cat_name = this.findCategoryName(this.id)
     }
@@ -83,10 +91,18 @@ export class ShopComponent implements OnInit {
       }
     }
 
+
+    this.cartItems = JSON.parse(sessionStorage.getItem("g_cartItems") as any)
+    this.cartCount = JSON.parse(sessionStorage.getItem("g_cartCount") as any)
     // ! Add Cart
     this.isItemAdded = true
-    GlobalConstants.Cart_Items.push(ctrProduct[0])
-    GlobalConstants.cartCount++
+    if (this.cartItems === null) {
+      this.cartItems = []
+    }
+    this.cartItems.push(ctrProduct[0])
+    this.cartCount++
+    // GlobalConstants.Cart_Items.push(ctrProduct[0])
+    // this.cartCount++
 
     // ! Duplicate product
     // this.avaProduct = GlobalConstants.Cart_Items
@@ -102,6 +118,9 @@ export class ShopComponent implements OnInit {
     // this.products = GlobalConstants.Cart_Items
 
     // ! update global variable
+    sessionStorage.setItem('g_cartItems', JSON.stringify(this.cartItems));
+    sessionStorage.setItem('g_cartCount', JSON.stringify(this.cartCount));
+
     let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
     let New_id = this.ProductObject.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
     let New_obj = this.ProductObject[New_id];
@@ -111,33 +130,40 @@ export class ShopComponent implements OnInit {
     localStorage.setItem('g_Products', JSON.stringify(this.products));
 
     //~ update message
-    localStorage.setItem('g_msg_update', "true")
-    localStorage.setItem('g_msg_color', "secondary")
-    localStorage.setItem('g_msg_title', "Item:")
-    localStorage.setItem('g_msg_text', "Added to Cart")
+    sessionStorage.setItem('g_msg_update', "true")
+    sessionStorage.setItem('g_msg_color', "secondary")
+    sessionStorage.setItem('g_msg_title', "Item:")
+    sessionStorage.setItem('g_msg_text', "Added to Cart")
   }
 
   addOneItem(getProductId: string) {
 
-    this.avaProduct = GlobalConstants.Cart_Items
+    this.avaProduct = JSON.parse(sessionStorage.getItem("g_cartItems") as any)
+    this.cartCount = JSON.parse(sessionStorage.getItem("g_cartCount") as any)
+
     for (let i = 0; i <= this.avaProduct.length - 1; i++) {
       if (this.avaProduct[i]._id === getProductId) {
-        this.avaProduct[i].quantity--
-        this.avaProduct[i].NofItems++
-        GlobalConstants.cartCount++
+        this.avaProduct[i].quantity = parseInt(this.avaProduct[i].quantity) - 1
+        this.avaProduct[i].NofItems = parseInt(this.avaProduct[i].NofItems) + 1
+        this.cartCount = parseInt(this.cartCount) + 1
+
         break;
       }
-
-      // ! update global variable
-      let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
-      let New_id = this.avaProduct.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
-      let New_obj = this.avaProduct[New_id];
-
-      this.products.splice(Old_id, 1, New_obj);
-      // GlobalConstants.g_Products = this.products
-      localStorage.setItem('g_Products', JSON.stringify(this.products));
-
     }
+
+    // ! update global variable
+    sessionStorage.setItem('g_cartItems', JSON.stringify(this.avaProduct));
+    sessionStorage.setItem('g_cartCount', JSON.stringify(this.cartCount));
+
+    let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
+    let New_id = this.avaProduct.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
+    let New_obj = this.avaProduct[New_id];
+
+    this.products.splice(Old_id, 1, New_obj);
+    // GlobalConstants.g_Products = this.products
+    localStorage.setItem('g_Products', JSON.stringify(this.products));
+
+
     // for (let i = 0; i <= this.products.length - 1; i++) {
     //   if (this.products[i]._id === getProductId) {
     //     console.log("💙", this.products[i].NofItems)
@@ -147,41 +173,95 @@ export class ShopComponent implements OnInit {
     //     break;
     //   }
     // }
+
+    // ! update products
+    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    if (this.isIDEnabled) {
+      this.ProductObject = this.products.filter((u: { category_id: string | null; }) => u.category_id === this.id)
+    } else {
+      this.ProductObject = this.products
+    }
   }
 
   removeOneItem(getProductId: string) {
 
-    this.avaProduct = GlobalConstants.Cart_Items
+    this.avaProduct = JSON.parse(sessionStorage.getItem("g_cartItems") as any)
+    this.cartCount = JSON.parse(sessionStorage.getItem("g_cartCount") as any)
+
     for (let i = 0; i <= this.avaProduct.length - 1; i++) {
       if (this.avaProduct[i]._id === getProductId) {
-        this.avaProduct[i].quantity++
-        this.avaProduct[i].NofItems--
-        GlobalConstants.cartCount--
+        this.avaProduct[i].quantity = parseInt(this.avaProduct[i].quantity) + 1
+        this.avaProduct[i].NofItems = parseInt(this.avaProduct[i].NofItems) - 1
+        this.cartCount = parseInt(this.cartCount) - 1
         if (this.avaProduct[i].NofItems == 0) {
-          GlobalConstants.Cart_Items.splice(i, 1);
+          this.avaProduct.splice(i, 1);
         }
         break;
       }
     }
 
-    // ! update global variable
-    let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
-    let New_id = this.avaProduct.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
-    let New_obj = this.avaProduct[New_id];
 
-    this.products.splice(Old_id, 1, New_obj);
+    for (let i = 0; i <= this.products.length - 1; i++) {
+      if (this.products[i]._id === getProductId) {
+        this.products[i].NofItems--
+        this.products[i].quantity++
+        break;
+      }
+    }
+
+    // ! update global variable\
+    sessionStorage.setItem('g_cartItems', JSON.stringify(this.avaProduct));
+    sessionStorage.setItem('g_cartCount', JSON.stringify(this.cartCount));
+
+    // let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
+    // let New_id = this.avaProduct.map(function (x: { _id: string; }) { return x._id; }).indexOf(getProductId);
+    // let New_obj = this.avaProduct[New_id];
+
+    // this.products.splice(Old_id, 1, New_obj);
     // GlobalConstants.g_Products = this.products
     localStorage.setItem('g_Products', JSON.stringify(this.products));
 
-    // for (let i = 0; i <= this.products.length - 1; i++) {
-    //   if (this.products[i]._id === getProductId) {
-    //     this.products[i].NofItems--
-    //     this.products[i].quantity++
-    //     break;
-    //   }
-    // }
+
+    // ! update products
+    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    if (this.isIDEnabled) {
+      this.ProductObject = this.products.filter((u: { category_id: string | null; }) => u.category_id === this.id)
+    } else {
+      this.ProductObject = this.products
+    }
 
   }
 
+  changeOnClick(isl: boolean, p_id: string, w_id: string) {
+    if (!isl) {
+      this.wishlist = {
+        _id: "",
+        user_id: this.uid,
+        product_id: p_id,
+        isLiked: true
+      }
+      this.service.addWishList(this.wishlist).subscribe((x: any) => {
+        console.log(x, 'updated wishlist')
+        //updated product
+        this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+        let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(p_id);
+        this.products[Old_id].w_id = x._id
+        this.products[Old_id].isLiked = true
+        localStorage.setItem('g_Products', JSON.stringify(this.products));
+      });
+      return '<i class="fa-solid fa-heart fs-4"></i>'
+
+    } else {
+
+      this.service.removeWishListById(w_id);
+      //updated product
+      this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+      let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(p_id);
+      this.products[Old_id].isLiked = false
+      localStorage.setItem('g_Products', JSON.stringify(this.products));
+      return '<i class="fa-regular fa-heart fs-4"></i>'
+
+    }
+  }
 
 }

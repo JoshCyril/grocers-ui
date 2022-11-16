@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   uname: string | null;
   uadmin: string | null;
   modalRef: MdbModalRef<ModelCartComponent> | null = null;
+  itemDeleted: string | null;
 
   constructor(public router: Router, private modalService: MdbModalService) { }
 
@@ -22,7 +23,17 @@ export class HeaderComponent implements OnInit {
   openModal() {
     this.modalRef = this.modalService.open(ModelCartComponent, {
       data: { title: 'Viewing Cart' },
+      modalClass: 'modal-dialog-scrollable  modal-dialog-centered',
+      ignoreBackdropClick: true,
+      keyboard: false
     });
+    // this.itemDeleted = sessionStorage.getItem('g_cartUpdate')
+
+    // if (this.itemDeleted === "true") {
+    //   this.itemDeleted = "false";
+    //   sessionStorage.setItem("g_cartUpdate", this.itemDeleted);
+    //   location.href = this.router.url;
+    // }
   }
 
   ngOnInit(): void {
@@ -51,12 +62,13 @@ export class HeaderComponent implements OnInit {
     sessionStorage.removeItem('g_uid')
     sessionStorage.removeItem('g_uname')
     sessionStorage.removeItem('g_uadmin')
+    localStorage.setItem('isFirstPulled', "false");
 
     this.router.navigate(['home']);
 
     // update message
     sessionStorage.setItem('g_msg_update', "true")
-    sessionStorage.setItem('g_msg_color', "success")
+    sessionStorage.setItem('g_msg_color', "info")
     sessionStorage.setItem('g_msg_title', "User Signned Out")
     sessionStorage.setItem('g_msg_text', "")
 
@@ -73,6 +85,6 @@ export class HeaderComponent implements OnInit {
 
   }
   getCartItems() {
-    return GlobalConstants.cartCount
+    return sessionStorage.getItem("g_cartCount")
   }
 }

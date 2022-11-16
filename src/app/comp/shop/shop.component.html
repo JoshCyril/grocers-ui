@@ -31,9 +31,15 @@
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row">
-            <div *ngFor="let product of ProductObject | search: searchInput" class="col-sm-6 col-md-4 col-lg-3 p-md-5 p-lg-4" >
+            <div *ngFor="let product of ProductObject | search: searchInput" class="col-sm-6 col-md-4 col-lg-3 p-sm-5 p-md-5 p-lg-4" >
                 <div class="card text-center">
-                <div class="card-header">{{ findCategoryName(product.category_id)}}</div>
+                <div class="card-header p-0" style="background-color: #fff0ff;">
+                    <div class="d-flex justify-content-start ps-3 pt-3 pb-2">
+                        <button type="button" class="btn btn-link link-secondary btn-floating" (click)="changeOnClick(product.isliked, product._id, product.w_id)">
+                        </button>
+                        <span class="px-3">{{ findCategoryName(product.category_id)}}</span>
+                    </div>
+                </div>
                 <img src="{{product.imgUrls[0]}}" class="card-img-top" alt="No Image"/>
                 <div class="card-body">
                     <h5 class="card-title fs-5">{{product.name}} </h5>
@@ -41,13 +47,13 @@
                         <p class="fs-6 mb-1">{{product.description}}</p>
                         <p class="fs-6 mb-2">
                             <span *ngIf='chkDiscount(product.discount[0].isDiscounted)'>
-                                ₹ <del>{{product.price}}</del> → <span class="fw-bold">₹{{calDiscountAmount(product.price, product.discount[0].percentage)}}</span>
+                                ₹ <del>{{product.price}}</del> <i class="fa-solid fa-arrow-right-long mx-2"></i> <span class="fw-bold">₹{{calDiscountAmount(product.price, product.discount[0].percentage)}}</span>
                             </span>
                             <span *ngIf='!chkDiscount(product.discount[0].isDiscounted)'><span class="fw-bold">₹{{product.price}}</span></span>
                         </p>
                     <span *ngIf="product.NofItems > 0" class="btn-group btn-group-sm mt-3" role="group">
                         <button type="button" (click)="removeOneItem(product._id)"class="btn btn-secondary"><i class="fa-solid fa-minus"></i></button>
-                        <button type="button" class="btn btn-outline-secondary" disabled> <span class="px-3">{{product.NofItems}}</span> </button>
+                        <button type="button" class="btn btn-outline-secondary" disabled> <span class="px-3 fs-6">{{product.NofItems}}</span> </button>
                         <button type="button" (click)="addOneItem(product._id)" class="btn btn-secondary"><i class="fa-solid fa-plus"></i></button>
                     </span >
 
