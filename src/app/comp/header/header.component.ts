@@ -26,18 +26,18 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.uid = localStorage.getItem('g_uid')
-    this.uname = localStorage.getItem('g_uname')
-    this.uadmin = localStorage.getItem('g_uadmin')
+    this.uid = sessionStorage.getItem('g_uid')
+    this.uname = sessionStorage.getItem('g_uname')
+    this.uadmin = sessionStorage.getItem('g_uadmin')
     // console.log(this.uid, this.uname);
     // this.reloadPage()
   }
 
   getVal() {
 
-    this.uid = localStorage.getItem('g_uid')
-    this.uname = localStorage.getItem('g_uname')
-    this.uadmin = localStorage.getItem('g_uadmin')
+    this.uid = sessionStorage.getItem('g_uid')
+    this.uname = sessionStorage.getItem('g_uname')
+    this.uadmin = sessionStorage.getItem('g_uadmin')
 
     if (this.uid !== null) {
       // console.log("uID: true", this.uid)
@@ -48,23 +48,23 @@ export class HeaderComponent implements OnInit {
     }
   }
   logout() {
-    localStorage.removeItem('g_uid')
-    localStorage.removeItem('g_uname')
-    localStorage.removeItem('g_uadmin')
+    sessionStorage.removeItem('g_uid')
+    sessionStorage.removeItem('g_uname')
+    sessionStorage.removeItem('g_uadmin')
 
     this.router.navigate(['home']);
 
     // update message
-    localStorage.setItem('g_msg_update', "true")
-    localStorage.setItem('g_msg_color', "success")
-    localStorage.setItem('g_msg_title', "User Signned Out")
-    localStorage.setItem('g_msg_text', "")
+    sessionStorage.setItem('g_msg_update', "true")
+    sessionStorage.setItem('g_msg_color', "success")
+    sessionStorage.setItem('g_msg_title', "User Signned Out")
+    sessionStorage.setItem('g_msg_text', "")
 
     return true
   }
 
   isUserAdmin() {
-    this.uadmin = localStorage.getItem('g_uadmin')
+    this.uadmin = sessionStorage.getItem('g_uadmin')
     if (this.uadmin === "true") {
       return true
     } else {

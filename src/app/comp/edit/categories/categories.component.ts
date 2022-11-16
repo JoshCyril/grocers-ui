@@ -17,7 +17,7 @@ export class CategoriesComponent implements OnInit {
   uadmin: string | null;
 
   ngOnInit(): void {
-    this.uadmin = localStorage.getItem('g_uadmin')
+    this.uadmin = sessionStorage.getItem('g_uadmin')
 
     if (this.uadmin === "true") {
       this.service.getAllCategory().subscribe(x => {
@@ -28,10 +28,10 @@ export class CategoriesComponent implements OnInit {
     } else {
       this.router.navigate(['/home']);
       // update message
-      localStorage.setItem('g_msg_update', "true")
-      localStorage.setItem('g_msg_color', "warning")
-      localStorage.setItem('g_msg_title', "Permission Denied:")
-      localStorage.setItem('g_msg_text', "You don't have admin access")
+      sessionStorage.setItem('g_msg_update', "true")
+      sessionStorage.setItem('g_msg_color', "warning")
+      sessionStorage.setItem('g_msg_title', "Permission Denied:")
+      sessionStorage.setItem('g_msg_text', "You don't have admin access")
     }
   }
 
@@ -40,10 +40,10 @@ export class CategoriesComponent implements OnInit {
     this.service.removeCategoryById(String(id)).subscribe(x => console.log(x));
 
     // update message
-    localStorage.setItem('g_msg_update', "true")
-    localStorage.setItem('g_msg_color', "danger")
-    localStorage.setItem('g_msg_title', "Deleted:")
-    localStorage.setItem('g_msg_text', "Category")
+    sessionStorage.setItem('g_msg_update', "true")
+    sessionStorage.setItem('g_msg_color', "danger")
+    sessionStorage.setItem('g_msg_title', "Deleted:")
+    sessionStorage.setItem('g_msg_text', "Category")
   }
 
 }

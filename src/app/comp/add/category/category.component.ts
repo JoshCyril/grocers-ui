@@ -17,29 +17,41 @@ export class CategoryComponent implements OnInit {
   submitted: boolean = false;
   isEditable: boolean = false;
   id: string | null;
+  uadmin: string | null;
 
   constructor(private builder: FormBuilder,
     private service: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+
+    this.uadmin = sessionStorage.getItem('g_uadmin')
     this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id == null) {
-      this.isEditable = false
-      this.registerForm = this.builder.group({
-        name: ['', Validators.required],
-        imgUrl: ['', Validators.required],
 
-      })
+    if (this.uadmin === "true") {
+      if (this.id == null) {
+        this.isEditable = false
+        this.registerForm = this.builder.group({
+          name: ['', Validators.required],
+          imgUrl: ['', Validators.required],
+
+        })
+      } else {
+        this.isEditable = true
+        this.service.getCategoryById(String(this.id)).subscribe(x => this.category = x);
+        this.registerForm = this.builder.group({
+          name: [this.category.name, Validators.required],
+          imgUrl: [this.category.imgUrl, Validators.required],
+
+        })
+      }
     } else {
-      this.isEditable = true
-      this.service.getCategoryById(String(this.id)).subscribe(x => this.category = x);
-      this.registerForm = this.builder.group({
-        name: [this.category.name, Validators.required],
-        imgUrl: [this.category.imgUrl, Validators.required],
-
-      })
+      this.router.navigate(['/home']);
+      // update message
+      sessionStorage.setItem('g_msg_update', "true")
+      sessionStorage.setItem('g_msg_color', "warning")
+      sessionStorage.setItem('g_msg_title', "Permission Denied:")
+      sessionStorage.setItem('g_msg_text', "You don't have admin access")
     }
-
   }
   get form() {
     return this.registerForm.controls;
@@ -56,18 +68,18 @@ export class CategoryComponent implements OnInit {
         // this.router.navigate(['e/categories']);
 
         // update message
-        localStorage.setItem('g_msg_update', "true")
-        localStorage.setItem('g_msg_color', "primary")
-        localStorage.setItem('g_msg_title', "Updated:")
-        localStorage.setItem('g_msg_text', "Category")
+        sessionStorage.setItem('g_msg_update', "true")
+        sessionStorage.setItem('g_msg_color', "primary")
+        sessionStorage.setItem('g_msg_title', "Updated:")
+        sessionStorage.setItem('g_msg_text', "Category")
       } else {
         this.service.addCategory(this.category).subscribe(x => { console.log(x, 'category added'); location.href = 'e/categories' });
         // this.router.navigate(['e/categories']);
         // update message
-        localStorage.setItem('g_msg_update', "true")
-        localStorage.setItem('g_msg_color', "primary")
-        localStorage.setItem('g_msg_title', "Added:")
-        localStorage.setItem('g_msg_text', "Category")
+        sessionStorage.setItem('g_msg_update', "true")
+        sessionStorage.setItem('g_msg_color', "primary")
+        sessionStorage.setItem('g_msg_title', "Added:")
+        sessionStorage.setItem('g_msg_text', "Category")
       }
     }
   }

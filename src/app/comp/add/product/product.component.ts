@@ -24,49 +24,62 @@ export class ProductComponent implements OnInit {
   tagStr: string = "";
   imgArr: string[] = [];
   tagArr: string[] = [];
+  uadmin: string | null;
 
   constructor(private builder: FormBuilder,
     private service: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
+    this.uadmin = sessionStorage.getItem('g_uadmin')
     this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id == null) {
-      this.isEditable = false
 
-      this.registerForm = this.builder.group({
-        name: ['', Validators.required],
-        description: ['', Validators.required],
-        price: ['', Validators.required],
-        quantity: ['', Validators.required],
-        percentage: [0, Validators.required],
-        imgUrls: ['', Validators.required],
-        tags: ['', Validators.required],
-        category_id: ['']
+    if (this.uadmin === "true") {
+      if (this.id == null) {
+        this.isEditable = false
+
+        this.registerForm = this.builder.group({
+          name: ['', Validators.required],
+          description: ['', Validators.required],
+          price: ['', Validators.required],
+          quantity: ['', Validators.required],
+          percentage: [0, Validators.required],
+          imgUrls: ['', Validators.required],
+          tags: ['', Validators.required],
+          category_id: ['']
+        })
+      } else {
+        this.isEditable = true
+        this.service.getProductById(String(this.id)).subscribe(x => { this.product = x; console.log(x) });
+        this.registerForm = this.builder.group({
+          name: [this.product.name, Validators.required],
+          description: [this.product.description, Validators.required],
+          price: [this.product.price, Validators.required],
+          quantity: [this.product.quantity, Validators.required],
+          percentage: [0, Validators.required],
+          imgUrls: [this.product.imgUrls, Validators.required],
+          tags: [this.product.tags, Validators.required],
+          category_id: [this.product.category_id]
+
+        })
+      }
+
+      // ~ Store Category in local storage
+      this.service.getAllCategory().subscribe(x => {
+        localStorage.setItem('g_categories', JSON.stringify(x))
       })
+
+      this.CategoryObject = JSON.parse(localStorage.getItem('g_categories') as any);
+      // console.log('Category Object: ', JSON.parse(this.CategoryObject) as any);
+
     } else {
-      this.isEditable = true
-      this.service.getProductById(String(this.id)).subscribe(x => { this.product = x; console.log(x) });
-      this.registerForm = this.builder.group({
-        name: [this.product.name, Validators.required],
-        description: [this.product.description, Validators.required],
-        price: [this.product.price, Validators.required],
-        quantity: [this.product.quantity, Validators.required],
-        percentage: [0, Validators.required],
-        imgUrls: [this.product.imgUrls, Validators.required],
-        tags: [this.product.tags, Validators.required],
-        category_id: [this.product.category_id]
-
-      })
+      this.router.navigate(['/home']);
+      // update message
+      sessionStorage.setItem('g_msg_update', "true")
+      sessionStorage.setItem('g_msg_color', "warning")
+      sessionStorage.setItem('g_msg_title', "Permission Denied:")
+      sessionStorage.setItem('g_msg_text', "You don't have admin access")
     }
-
-    // ~ Store Category in local storage
-    this.service.getAllCategory().subscribe(x => {
-      localStorage.setItem('g_categories', JSON.stringify(x))
-    })
-
-    this.CategoryObject = JSON.parse(localStorage.getItem('g_categories') as any);
-    // console.log('Category Object: ', JSON.parse(this.CategoryObject) as any);
 
   }
   get form() {
@@ -92,19 +105,19 @@ export class ProductComponent implements OnInit {
         this.service.modifyProduct(this.product, String(this.id)).subscribe(x => { console.log(x, 'product modified'); location.href = 'e/products' });
         // this.router.navigate(['e/products']);
         // update message
-        localStorage.setItem('g_msg_update', "true")
-        localStorage.setItem('g_msg_color', "primary")
-        localStorage.setItem('g_msg_title', "Updated:")
-        localStorage.setItem('g_msg_text', "Product")
+        sessionStorage.setItem('g_msg_update', "true")
+        sessionStorage.setItem('g_msg_color', "primary")
+        sessionStorage.setItem('g_msg_title', "Updated:")
+        sessionStorage.setItem('g_msg_text', "Product")
 
       } else {
         this.service.addProduct(this.product).subscribe(x => { console.log(x, 'product added'); location.href = 'e/products' });
         // this.router.navigate(['']);
         // update message
-        localStorage.setItem('g_msg_update', "true")
-        localStorage.setItem('g_msg_color', "primary")
-        localStorage.setItem('g_msg_title', "Added:")
-        localStorage.setItem('g_msg_text', "Product")
+        sessionStorage.setItem('g_msg_update', "true")
+        sessionStorage.setItem('g_msg_color', "primary")
+        sessionStorage.setItem('g_msg_title', "Added:")
+        sessionStorage.setItem('g_msg_text', "Product")
 
       }
     }

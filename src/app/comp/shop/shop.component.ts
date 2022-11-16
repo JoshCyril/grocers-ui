@@ -29,8 +29,6 @@ export class ShopComponent implements OnInit {
     this.products = JSON.parse(localStorage.getItem("g_Products") as any)
     this.CategoryObject = JSON.parse(localStorage.getItem("g_Categories") as any)
 
-    console.log(this.products)
-
     if (this.id == null) {
 
       this.ProductObject = this.products

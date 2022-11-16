@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
   constructor(private router: Router, private service: ApiService) { }
 
   ngOnInit(): void {
-    this.uadmin = localStorage.getItem('g_uadmin')
+    this.uadmin = sessionStorage.getItem('g_uadmin')
     // this.CategoryObject = GlobalConstants.g_Categories
     this.CategoryObject = JSON.parse(localStorage.getItem("g_Categories") as any)
 
@@ -30,10 +30,10 @@ export class ProductsComponent implements OnInit {
     } else {
       this.router.navigate(['/home']);
       // update message
-      localStorage.setItem('g_msg_update', "true")
-      localStorage.setItem('g_msg_color', "warning")
-      localStorage.setItem('g_msg_title', "Permission Denied:")
-      localStorage.setItem('g_msg_text', "You don't have admin access")
+      sessionStorage.setItem('g_msg_update', "true")
+      sessionStorage.setItem('g_msg_color', "warning")
+      sessionStorage.setItem('g_msg_title', "Permission Denied:")
+      sessionStorage.setItem('g_msg_text', "You don't have admin access")
     }
   }
 
@@ -42,10 +42,10 @@ export class ProductsComponent implements OnInit {
     this.service.removeProductById(String(id)).subscribe(x => console.log(x));
 
     // update message
-    localStorage.setItem('g_msg_update', "true")
-    localStorage.setItem('g_msg_color', "danger")
-    localStorage.setItem('g_msg_title', "Deleted:")
-    localStorage.setItem('g_msg_text', "Product")
+    sessionStorage.setItem('g_msg_update', "true")
+    sessionStorage.setItem('g_msg_color', "danger")
+    sessionStorage.setItem('g_msg_title', "Deleted:")
+    sessionStorage.setItem('g_msg_text', "Product")
 
   }
 

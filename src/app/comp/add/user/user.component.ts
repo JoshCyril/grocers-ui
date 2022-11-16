@@ -22,37 +22,49 @@ export class UserComponent implements OnInit {
   userExistMsg: string = "";
   isEditable: boolean = false;
   id: string | null;
+  uadmin: string | null;
 
   constructor(private builder: FormBuilder,
     private service: ApiService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id == null) {
-      this.isEditable = false
-      this.registerForm = this.builder.group({
-        name: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(8)]],
+    this.uadmin = sessionStorage.getItem('g_uadmin')
 
-      })
+    if (this.uadmin === "true") {
+
+      if (this.id == null) {
+        this.isEditable = false
+        this.registerForm = this.builder.group({
+          name: ['', Validators.required],
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required, Validators.minLength(8)]],
+
+        })
+      } else {
+        this.isEditable = true
+        this.service.getUserById(String(this.id)).subscribe(x => this.user = x);
+        this.registerForm = this.builder.group({
+          name: [this.user.name, Validators.required],
+          email: [this.user.email, [Validators.required, Validators.email]],
+          password: [this.user.password],
+          isAdmin: [this.user.isAdmin],
+
+        })
+      }
+
+
+
+      this.service.chkUserExist().subscribe(x => { this.userDB = x });
+
     } else {
-      this.isEditable = true
-      this.service.getUserById(String(this.id)).subscribe(x => this.user = x);
-      this.registerForm = this.builder.group({
-        name: [this.user.name, Validators.required],
-        email: [this.user.email, [Validators.required, Validators.email]],
-        password: [this.user.password],
-        isAdmin: [this.user.isAdmin],
-
-      })
+      this.router.navigate(['/home']);
+      // update message
+      sessionStorage.setItem('g_msg_update', "true")
+      sessionStorage.setItem('g_msg_color', "warning")
+      sessionStorage.setItem('g_msg_title', "Permission Denied:")
+      sessionStorage.setItem('g_msg_text', "You don't have admin access")
     }
-
-    console.log("Edit: ", this.isEditable)
-
-
-
-    this.service.chkUserExist().subscribe(x => { this.userDB = x });
 
   }
   get form() {
@@ -89,18 +101,18 @@ export class UserComponent implements OnInit {
 
 
           // update message
-          localStorage.setItem('g_msg_update', "true")
-          localStorage.setItem('g_msg_color', "primary")
-          localStorage.setItem('g_msg_title', "Updated:")
-          localStorage.setItem('g_msg_text', "User")
+          sessionStorage.setItem('g_msg_update', "true")
+          sessionStorage.setItem('g_msg_color', "primary")
+          sessionStorage.setItem('g_msg_title', "Updated:")
+          sessionStorage.setItem('g_msg_text', "User")
         } else {
           this.service.addUser(this.user).subscribe(x => { console.log(x, 'user added'); location.href = 'e/users' });
 
           // update message
-          localStorage.setItem('g_msg_update', "true")
-          localStorage.setItem('g_msg_color', "primary")
-          localStorage.setItem('g_msg_title', "Added:")
-          localStorage.setItem('g_msg_text', "User")
+          sessionStorage.setItem('g_msg_update', "true")
+          sessionStorage.setItem('g_msg_color', "primary")
+          sessionStorage.setItem('g_msg_title', "Added:")
+          sessionStorage.setItem('g_msg_text', "User")
         }
 
       }

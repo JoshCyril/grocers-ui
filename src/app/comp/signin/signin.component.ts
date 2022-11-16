@@ -44,17 +44,17 @@ export class SigninComponent implements OnInit {
         this.email = ''
       }
       this.service.loginUser(this.name, this.email, this.password).subscribe(x => {
-        localStorage.setItem('g_uid', x._id)
-        localStorage.setItem('g_uname', x.name)
-        localStorage.setItem('g_uadmin', x.isAdmin)
+        sessionStorage.setItem('g_uid', x._id)
+        sessionStorage.setItem('g_uname', x.name)
+        sessionStorage.setItem('g_uadmin', x.isAdmin)
       });
       this.router.navigate(['home']);
 
       // update message
-      localStorage.setItem('g_msg_update', "true")
-      localStorage.setItem('g_msg_color', "secondary")
-      localStorage.setItem('g_msg_title', "Signin:")
-      localStorage.setItem('g_msg_text', "Successful")
+      sessionStorage.setItem('g_msg_update', "true")
+      sessionStorage.setItem('g_msg_color', "secondary")
+      sessionStorage.setItem('g_msg_title', "Signin:")
+      sessionStorage.setItem('g_msg_text', "Successful")
     }
   }
 
