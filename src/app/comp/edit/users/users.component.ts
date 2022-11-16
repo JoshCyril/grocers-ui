@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { iif } from 'rxjs';
+import { GlobalConstants } from 'src/app/global-constants';
 import { User } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -20,8 +21,9 @@ export class UsersComponent implements OnInit {
     this.uadmin = localStorage.getItem('g_uadmin')
     if (this.uadmin === "true") {
       this.service.getAllUsers().subscribe(x => {
+        // GlobalConstants.g_Users = x;
+        localStorage.setItem('g_Users', JSON.stringify(x));
         this.users = x;
-        localStorage.setItem('g_count_user', String(x.length))
       })
     } else {
       this.router.navigate(['/home']);

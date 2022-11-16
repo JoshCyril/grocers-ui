@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalConstants } from 'src/app/global-constants';
 import { Category } from 'src/app/models/category.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -20,8 +21,9 @@ export class CategoriesComponent implements OnInit {
 
     if (this.uadmin === "true") {
       this.service.getAllCategory().subscribe(x => {
+        localStorage.setItem('g_Categories', JSON.stringify(x));
+        // GlobalConstants.g_Categories = x;
         this.category = x;
-        localStorage.setItem('g_count_category', String(x.length))
       })
     } else {
       this.router.navigate(['/home']);

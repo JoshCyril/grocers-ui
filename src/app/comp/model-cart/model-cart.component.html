@@ -14,6 +14,7 @@
               <th>No.</th>
               <th>Name</th>
               <th>Amount</th>
+              <th>Quantity</th>
               <th>Operations</th>
           </tr>
       </thead>
@@ -25,6 +26,7 @@
                   <p class="fw-normal mb-1">{{u.F_price}}</p>
                   <!-- <p class="text-muted mb-0">{{u.password}}</p> -->
               </td>
+              <td>{{u.NofItems}}</td>
               <td>
                   &nbsp;
                   <button class="btn btn-outline-danger btn-rounded" (click)="removeItem(i)" mdbTooltip="Delete User" placement="top"><i class="fa-solid fa-trash"></i></button>

@@ -31,7 +31,7 @@
     <div class="col-1"></div>
     <div class="col-10">
         <div class="row">
-            <div *ngFor="let product of products | search: searchInput" class="col-sm-6 col-md-4 col-lg-3 p-md-5 p-lg-4" >
+            <div *ngFor="let product of ProductObject | search: searchInput" class="col-sm-6 col-md-4 col-lg-3 p-md-5 p-lg-4" >
                 <div class="card text-center">
                 <div class="card-header">{{ findCategoryName(product.category_id)}}</div>
                 <img src="{{product.imgUrls[0]}}" class="card-img-top" alt="No Image"/>
@@ -45,7 +45,16 @@
                             </span>
                             <span *ngIf='!chkDiscount(product.discount[0].isDiscounted)'><span class="fw-bold">₹{{product.price}}</span></span>
                         </p>
-                    <a (click)="addToCart(product._id)" class="btn btn-outline-secondary btn-rounded mt-3">Add to Cart</a>
+                    <span *ngIf="product.NofItems > 0" class="btn-group btn-group-sm mt-3" role="group">
+                        <button type="button" (click)="removeOneItem(product._id)"class="btn btn-secondary"><i class="fa-solid fa-minus"></i></button>
+                        <button type="button" class="btn btn-outline-secondary" disabled> <span class="px-3">{{product.NofItems}}</span> </button>
+                        <button type="button" (click)="addOneItem(product._id)" class="btn btn-secondary"><i class="fa-solid fa-plus"></i></button>
+                    </span >
+
+                    <span *ngIf="product.NofItems === undefined || product.NofItems <= 0">
+                        <a (click)="addToCart(product._id)" class="btn btn-outline-secondary mt-3">Add to Cart</a>
+                    </span>
+                    
                 </div>
                 <div class="card-footer text-muted text-center">
                     <span *ngIf='chkDiscount(product.discount[0].isDiscounted)'>
