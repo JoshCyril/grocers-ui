@@ -12,6 +12,7 @@ import { SigninComponent } from './comp/signin/signin.component';
 import { SignupComponent } from './comp/signup/signup.component';
 import { ProfileComponent } from './comp/profile/profile.component';
 import { ShopComponent } from './comp/shop/shop.component';
+import { OrdersComponent } from './comp/orders/orders.component';
 
 const appNameTitle = "Grocers"
 
@@ -42,6 +43,10 @@ const routes: Routes = [
     title: appNameTitle + ' - Sign Up',
     component: SignupComponent
   },
+
+  { path: "orders", title: appNameTitle + ' - Your Order', component: OrdersComponent },
+  { path: "orders/:id", title: appNameTitle + ' - Orders', component: OrdersComponent },
+
   { path: "shop", title: appNameTitle + ' - Shop', component: ShopComponent },
   { path: "shop/:id", title: appNameTitle + ' - Shop by Category', component: ShopComponent },
 

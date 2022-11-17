@@ -62,7 +62,6 @@ export class ModelCartComponent implements OnInit {
     for (let i = 0; i <= this.cartItems.length - 1; i++) {
       tAmount = tAmount + (this.cartItems[i].NofItems * this.cartItems[i].F_price)
     }
-
     return tAmount.toLocaleString()
   }
 
@@ -73,6 +72,15 @@ export class ModelCartComponent implements OnInit {
       this.itemDeleted = false;
       location.href = this.router.url;
     }
+  }
 
+  chkOut() {
+    this.modalRef.close()
+
+    if (this.itemDeleted) {
+      this.itemDeleted = false;
+    }
+
+    location.href = '/orders';
   }
 }

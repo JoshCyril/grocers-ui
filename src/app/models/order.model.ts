@@ -6,7 +6,6 @@ export class Order {
   }]> = [];
   status: string;
   totalAmount: number;
-  createdAt: Date;
 }
 
 export class OrderN {

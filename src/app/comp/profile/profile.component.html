@@ -20,7 +20,7 @@
     <p class="fw-bold fs-4 my-3">WishList</p>
 
     <table class="table table-striped align-middle mb-2 table-sm">
-        <thead class="bg-light text-dark">
+        <thead class="bg-dark text-light">
             <tr>
                 <th>#</th>
                 <th>Name</th>
@@ -31,6 +31,19 @@
                 <td>{{i+1}}</td>
                 <td>{{findProductName(u.product_id)}}</td>
             </tr>
+            <tr *ngIf="NoOfWishlist <= 0">
+                <td colspan="2">
+                    <div class="text-center"> 
+                        <span class="text-black-50 fs-5 fw-normal me-4">WishList is Empty</span> 
+                        <img
+                        src="../../../assets/img/Grocers Logo.png"
+                        class="flt-img"
+                        width="60"
+                        alt="..."
+                        />
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 
@@ -38,7 +51,7 @@
 
     <p class="fw-bold fs-4 my-3">Orders  <a routerLink="/orders/{{user._id}}" class="link-dark ms-2 fs-6" mdbTooltip="Goto Orders" placement="top"> <i class="fa-solid fa-arrow-up-right-from-square"></i> </a></p>
     <table class="table table-striped align-middle mb-2 table-sm">
-        <thead class="bg-light text-dark">
+        <thead class="bg-dark text-light">
             <tr>
                 <th>#</th>
                 <th>Items</th>
@@ -49,9 +62,34 @@
         <tbody>
             <tr *ngFor="let u of order; let i = index">
                 <td>{{i+1}}</td>
-                <td>{{u.products}}</td>
-                <td>{{u.totalAmount}}</td>
-                <td>{{u.createdAt}}</td>
+                <td>
+                    <span *ngFor="let itm of u.products" class="text-capitalize btn btn-light btn-rounded m-2 btn-sm disabled">
+                        <span *ngFor="let pd of itm | keyvalue">
+                            <span *ngIf="pd.key === 'product_count'">
+                                {{pd.value}} x 
+                            </span>
+                            <span *ngIf="pd.key === 'product_id'">
+                                {{findProductName(pd.value)}}
+                            </span>
+                            
+                        </span>
+                    </span>
+                </td>
+                <td>₹{{u.totalAmount}}</td>
+                <td>{{convertToProperTime(u.createdAt)}}</td>
+            </tr>
+            <tr *ngIf="NoOfOrders <= 0">
+                <td colspan="4">
+                    <div class="text-center"> 
+                        <span class="text-black-50 fs-5 fw-normal me-4">Order is empty</span> 
+                        <img
+                        src="../../../assets/img/no-products.png"
+                        class="flt-img"
+                        width="60"
+                        alt="..."
+                        />
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

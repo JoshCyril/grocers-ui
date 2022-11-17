@@ -1,0 +1,125 @@
+<!-- Heading -->
+<div class="p-3 mb-4">
+    <h2 class="text-muted fw-bold fs-3 mb-4">{{cat_name}}
+    <span class="fs-5 ms-4" *ngIf="!isIDEnabled">[ {{NoOfItems}} <i class="fa-solid fa-cart-shopping text-black-50 me-1"></i>]</span> </h2>
+</div>
+<!-- Heading -->
+
+<!-- Body -->
+<div *ngIf="!isIDEnabled">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <button type="button" class="btn btn-secondary btn-lg fw-bold" [ngClass]="NoOfItems <= 0?'disabled':''" (click)="addToOrders()" >Pay  ₹{{cartTotal}}</button>
+            <button type="button" class="btn btn-outline-secondary btn-lg fw-bold disabled me-4 " [ngClass]="isOfferActivated?'visible':'invisible'">{{offerPer}}% Off</button>
+            <div class="my-5"></div>
+            CODE: 
+            <button type="button" class="mx-2 btn btn-outline-secondary btn-sm btn-rounded fw-bold" [ngClass]="Total_Amount < 20?'disabled':''" mdbTooltip="20% Off | Above 20rs" placement="top" (click)="makeOffer(20)" >GROCERS-20</button>
+            <button type="button" class="me-2 btn btn-outline-secondary btn-sm btn-rounded fw-bold" [ngClass]="Total_Amount < 50?'disabled':''" mdbTooltip="30% Off | Above 50rs" placement="top" (click)="makeOffer(30)">NEW-30</button>
+            <button type="button" class="me-2 btn btn-outline-secondary btn-sm btn-rounded fw-bold" [ngClass]="Total_Amount < 100?'disabled':''" mdbTooltip="40% Off | Above 100rs" placement="top" (click)="makeOffer(40)">FREE-40</button>
+            <button type="button" class="btn btn-outline-danger btn-sm btn-rounded fw-bold"  [ngClass]="isOfferActivated?'':'disabled'" mdbTooltip="Clear Offer" placement="top" (click)="makeOffer(0)"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="col-1"></div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <div class="row">
+                <div *ngFor="let product of cartItems" class="col-sm-6 col-md-4 col-lg-3 p-sm-5 p-md-5 p-lg-4" >
+                    <div class="card text-center">
+                    <div class="card-header" style="background-color: #fff0ff;">
+                        
+                            <p class="fs-6 mb-2">
+                                <span class="fw-bold me-3">₹{{product.F_price}}</span> x {{product.NofItems}}
+                            </p>
+                        
+                    </div>
+                    <!-- <img src="{{product.imgUrls[0]}}" class="card-img-top" alt="No Image"/> -->
+                    <div class="card-body">
+                        <h5 class="card-title fs-5">{{product.name}} </h5>
+                        <span class="card-text">
+                            <p class="fs-6 mb-1">{{product.description}}</p>
+                        </span>
+                    </div>
+                    <!-- <div class="card-footer text-muted text-center"></div> -->
+                </div>
+            </div>
+            <div class="no-item p-5 text-center"> 
+                <span class="text-black-50 fs-5 fw-normal">Your cart is empty</span> 
+                <br>
+                <img
+                src="../../../assets/img/carts.png"
+                class="flt-img"
+                width="100"
+                alt="..."
+                />
+            </div>
+        </div>
+    </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+
+<div *ngIf="isIDEnabled">
+    <div class="row mt-5">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <!-- Table -->
+            <table class="table table-striped table-hover caption-top align-middle mb-2">
+                <thead class="bg-dark text-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Items</th>
+                        <th>Total Amount</th>
+                        <th>Status</th>
+                        <th>Ordered At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let u of orderN; let i = index ">
+                        <td>{{i+1}}</td>
+                        <td>
+
+                            <span *ngFor="let itm of u.products" class="text-capitalize btn btn-light btn-rounded m-2 btn-sm disabled">
+                                <span *ngFor="let pd of itm | keyvalue">
+                                    <span *ngIf="pd.key === 'product_count'">
+                                        {{pd.value}} x 
+                                    </span>
+                                    <span *ngIf="pd.key === 'product_id'">
+                                        {{findProductName(pd.value)}}
+                                    </span>
+                                    
+                                </span>
+                            </span>
+
+                        </td>
+                        <td>
+                            <p class="fw-normal mb-1">₹{{u.totalAmount}}</p>
+                        </td>
+                        <td>
+                            {{u.status}}
+                        </td>
+                        <td>
+                            {{convertToProperTime(u.createdAt)}}
+                        </td>
+                    </tr>
+                    <tr *ngIf="NoOfOrders <= 0">
+                      <td colspan="5">
+                          <div class="text-center"> 
+                              <span class="text-black-50 fs-5 fw-normal me-4">Order is empty</span> 
+                              <img
+                              src="../../../assets/img/no-products.png"
+                              class="flt-img"
+                              width="60"
+                              alt="..."
+                              />
+                          </div>
+                      </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+<!-- Body -->
