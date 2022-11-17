@@ -1,5 +1,6 @@
 <div class="container row">
-         <p class="text-secondary fs-3 fw-bold mb-4">Sign Up</p>
+    <div class="px-5 pt-4">
+        <p class="text-secondary fs-3 fw-bold mb-4">Sign Up</p>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="form-group mb-4">
                 <mdb-form-control>
@@ -73,5 +74,11 @@
                 <button class="btn btn-secondary btn-rounded">Add Me</button>
             </div>
         </form>
+
+        <p class="text-black-50 fs-6 mt-5">Have an account? 
+            <a class="btn-link link-secondary btn-rounded" routerLink="/signin">Sign In</a>
+        </p>
+    </div>
+         
     </div>
 

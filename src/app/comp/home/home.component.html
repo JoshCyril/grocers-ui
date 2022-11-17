@@ -34,10 +34,9 @@
           
             </div>
 
-            <button type="button" class="btn btn-secondary btn-rounded px-3 me-2" routerLink="/shop">
-              Shop Now
-            </button>
-
+            <button *ngIf="userExist" type="button" class="btn btn-secondary btn-rounded px-3 me-2" routerLink="/shop">Shop Now</button>
+            <button *ngIf="!userExist" type="button" class="btn btn-secondary btn-rounded px-3 me-2" routerLink="/signin">Sign In</button>
+          
           </div>
 
           </div>

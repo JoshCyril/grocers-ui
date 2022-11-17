@@ -44,19 +44,31 @@ export class SigninComponent implements OnInit {
         this.email = ''
       }
       this.service.loginUser(this.name, this.email, this.password).subscribe(x => {
-        sessionStorage.setItem('g_uid', x._id)
-        sessionStorage.setItem('g_uname', x.name)
-        sessionStorage.setItem('g_uadmin', x.isAdmin)
-        location.href = '/home'
+        if (x._id === undefined) {
+          // update message
+          sessionStorage.setItem('g_msg_update', "true")
+          sessionStorage.setItem('g_msg_color', "danger")
+          sessionStorage.setItem('g_msg_title', "SignIn:")
+          sessionStorage.setItem('g_msg_text', "Failed, Incorrect Username/Password")
+        } else {
+          // update message
+          sessionStorage.setItem('g_msg_update', "true")
+          sessionStorage.setItem('g_msg_color', "secondary")
+          sessionStorage.setItem('g_msg_title', "Signin:")
+          sessionStorage.setItem('g_msg_text', "Successful")
+
+          sessionStorage.setItem('g_uid', x._id)
+          sessionStorage.setItem('g_uname', x.name)
+          sessionStorage.setItem('g_uadmin', x.isAdmin)
+
+          location.href = '/home'
+        }
+
       });
 
       // this.router.navigate(['home']);
 
-      // update message
-      sessionStorage.setItem('g_msg_update', "true")
-      sessionStorage.setItem('g_msg_color', "secondary")
-      sessionStorage.setItem('g_msg_title', "Signin:")
-      sessionStorage.setItem('g_msg_text', "Successful")
+
     }
   }
 

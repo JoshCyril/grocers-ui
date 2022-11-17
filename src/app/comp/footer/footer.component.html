@@ -1,9 +1,9 @@
 
 <footer class="text-right fixed-bottom row">
-    <div class="col-8"></div>
+    <div class="col-4"></div>
 
     <!-- ! Message -->
-    <div class="text-right p-3 col-4" *ngIf="updateMsg()">
+    <div class="text-right p-3 col-8" *ngIf="updateMsg()">
         <p class="note note-{{msgColor}} float-end  d-flex align-items-center" [ngClass]="{'invisible' : isClosed,'visible' : !isClosed }">
             <strong class="p-0">{{msgTitle}} &nbsp;</strong> {{msgText}}
             <button type="button" class="btn btn-link link-{{msgColor}} btn-rounded ms-4" (click)="closeBtn()"><i class="fa-solid fa-xmark fw-bold"></i></button>

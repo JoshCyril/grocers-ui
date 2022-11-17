@@ -9,6 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 export class HomeComponent implements OnInit {
   uid: string | null;
   products: any;
+  userExist: boolean = false
 
   constructor(private service: ApiService) { }
   userCnt: number = 0;
@@ -16,10 +17,10 @@ export class HomeComponent implements OnInit {
   categoryCnt: number = 0;
 
   ngOnInit(): void {
+    this.uid = sessionStorage.getItem('g_uid')
 
     if (localStorage.getItem("isFirstPulled") !== "true") {
 
-      this.uid = sessionStorage.getItem('g_uid')
       sessionStorage.setItem('g_cartItems', JSON.stringify([]));
       sessionStorage.setItem('g_cartCount', JSON.stringify(0));
 
@@ -34,6 +35,7 @@ export class HomeComponent implements OnInit {
         this.productCnt = parseInt(localStorage.getItem("g_productCnt") as string)
 
         if (this.uid !== null) {
+          this.userExist = true
           this.products = JSON.parse(localStorage.getItem("g_Products") as any)
 
           for (let k = 0; k <= this.products.length - 1; k++) {
@@ -82,6 +84,11 @@ export class HomeComponent implements OnInit {
       })
 
     } else {
+      if (this.uid !== null) {
+        this.userExist = true
+      } else {
+        this.userExist = false
+      }
       this.productCnt = parseInt(localStorage.getItem("g_productCnt") as string)
       this.categoryCnt = parseInt(localStorage.getItem("g_categoryCnt") as string)
       this.userCnt = parseInt(localStorage.getItem("g_userCnt") as string)
