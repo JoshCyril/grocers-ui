@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
-import { GlobalConstants } from 'src/app/global-constants';
 import { ModelCartComponent } from '../model-cart/model-cart.component';
 
 @Component({
@@ -62,7 +61,7 @@ export class HeaderComponent implements OnInit {
     sessionStorage.removeItem('g_uid')
     sessionStorage.removeItem('g_uname')
     sessionStorage.removeItem('g_uadmin')
-    localStorage.setItem('isFirstPulled', "false");
+    sessionStorage.setItem('isFirstPulled', "false");
 
     this.router.navigate(['home']);
 

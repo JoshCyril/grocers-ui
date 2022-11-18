@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MdbModalRef } from 'mdb-angular-ui-kit/modal';
 // import { MdbModalRef } from 'mdb-angular-ui-kit/modal/modal-ref';
-import { GlobalConstants } from '../../global-constants';
 
 @Component({
   selector: 'app-model-cart',
@@ -30,7 +29,7 @@ export class ModelCartComponent implements OnInit {
 
     this.cartItems = JSON.parse(sessionStorage.getItem("g_cartItems") as any)
     this.cartCount = JSON.parse(sessionStorage.getItem("g_cartCount") as any)
-    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
 
 
     this.cartItems.splice(removeItem, 1);
@@ -46,7 +45,7 @@ export class ModelCartComponent implements OnInit {
 
     sessionStorage.setItem('g_cartItems', JSON.stringify(this.cartItems));
     sessionStorage.setItem('g_cartCount', JSON.stringify(this.cartCount));
-    localStorage.setItem('g_Products', JSON.stringify(this.products));
+    sessionStorage.setItem('g_Products', JSON.stringify(this.products));
 
     this.cartTotal = this.getTotal()
     sessionStorage.setItem("g_cartTotal", JSON.stringify(this.cartTotal));

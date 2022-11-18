@@ -93,7 +93,7 @@ export class OrdersComponent implements OnInit {
 
       this.cartItems = JSON.parse(sessionStorage.getItem("g_cartItems") as any)
       this.cartCount = JSON.parse(sessionStorage.getItem("g_cartCount") as any)
-      this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+      this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
 
       //clear and update cart
       for (let j = 0; j <= this.products.length - 1; j++) {
@@ -102,7 +102,7 @@ export class OrdersComponent implements OnInit {
 
       sessionStorage.setItem('g_cartItems', JSON.stringify([]));
       sessionStorage.setItem('g_cartCount', JSON.stringify(0));
-      localStorage.setItem('g_Products', JSON.stringify(this.products));
+      sessionStorage.setItem('g_Products', JSON.stringify(this.products));
 
       location.href = 'orders/' + this.uid
     })
@@ -110,7 +110,7 @@ export class OrdersComponent implements OnInit {
   }
 
   findProductName(id: any) {
-    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
     return this.products.filter((x: { _id: string; }) => x._id === id).map((x: { name: string; }) => x.name);
   }
 

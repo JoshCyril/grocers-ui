@@ -66,10 +66,10 @@ export class ProductComponent implements OnInit {
 
       // ~ Store Category in local storage
       this.service.getAllCategory().subscribe(x => {
-        localStorage.setItem('g_categories', JSON.stringify(x))
+        sessionStorage.setItem('g_categories', JSON.stringify(x))
       })
 
-      this.CategoryObject = JSON.parse(localStorage.getItem('g_categories') as any);
+      this.CategoryObject = JSON.parse(sessionStorage.getItem('g_categories') as any);
       // console.log('Category Object: ', JSON.parse(this.CategoryObject) as any);
 
     } else {

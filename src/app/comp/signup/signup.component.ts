@@ -64,10 +64,10 @@ export class SignupComponent implements OnInit {
         this.router.navigate(['signin']);
 
         // update message
-        localStorage.setItem('g_msg_update', "true")
-        localStorage.setItem('g_msg_color', "success")
-        localStorage.setItem('g_msg_title', "Account:")
-        localStorage.setItem('g_msg_text', "Created, try to sign-in")
+        sessionStorage.setItem('g_msg_update', "true")
+        sessionStorage.setItem('g_msg_color', "success")
+        sessionStorage.setItem('g_msg_title', "Account:")
+        sessionStorage.setItem('g_msg_text', "Created, try to sign-in")
 
       }
     }

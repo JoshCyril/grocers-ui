@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/global-constants';
 import { ApiService } from 'src/app/services/api.service';
 import { iif } from 'rxjs';
 import { Wishlist } from 'src/app/models/wishlist.model';
@@ -34,8 +33,8 @@ export class ShopComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.uid = sessionStorage.getItem('g_uid')
 
-    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
-    this.CategoryObject = JSON.parse(localStorage.getItem("g_Categories") as any)
+    this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
+    this.CategoryObject = JSON.parse(sessionStorage.getItem("g_Categories") as any)
 
     if (this.id == null) {
       this.isIDEnabled = false
@@ -127,7 +126,7 @@ export class ShopComponent implements OnInit {
 
     this.products.splice(Old_id, 1, New_obj);
     // GlobalConstants.g_Products = this.products
-    localStorage.setItem('g_Products', JSON.stringify(this.products));
+    sessionStorage.setItem('g_Products', JSON.stringify(this.products));
 
     //~ update message
     sessionStorage.setItem('g_msg_update', "true")
@@ -161,7 +160,7 @@ export class ShopComponent implements OnInit {
 
     this.products.splice(Old_id, 1, New_obj);
     // GlobalConstants.g_Products = this.products
-    localStorage.setItem('g_Products', JSON.stringify(this.products));
+    sessionStorage.setItem('g_Products', JSON.stringify(this.products));
 
 
     // for (let i = 0; i <= this.products.length - 1; i++) {
@@ -175,7 +174,7 @@ export class ShopComponent implements OnInit {
     // }
 
     // ! update products
-    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
     if (this.isIDEnabled) {
       this.ProductObject = this.products.filter((u: { category_id: string | null; }) => u.category_id === this.id)
     } else {
@@ -219,11 +218,11 @@ export class ShopComponent implements OnInit {
 
     // this.products.splice(Old_id, 1, New_obj);
     // GlobalConstants.g_Products = this.products
-    localStorage.setItem('g_Products', JSON.stringify(this.products));
+    sessionStorage.setItem('g_Products', JSON.stringify(this.products));
 
 
     // ! update products
-    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
     if (this.isIDEnabled) {
       this.ProductObject = this.products.filter((u: { category_id: string | null; }) => u.category_id === this.id)
     } else {
@@ -244,11 +243,11 @@ export class ShopComponent implements OnInit {
       this.service.addWishList(this.wishlist).subscribe((x: any) => {
         console.log(x, 'updated wishlist')
         //updated product
-        this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+        this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
         let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(p_id);
         this.products[Old_id].w_id = x._id
         this.products[Old_id].isLiked = true
-        localStorage.setItem('g_Products', JSON.stringify(this.products));
+        sessionStorage.setItem('g_Products', JSON.stringify(this.products));
         location.href = this.router.url;
       });
 
@@ -257,11 +256,11 @@ export class ShopComponent implements OnInit {
       // ~ Remove from wishlist - TRUE
       this.service.removeWishListById(String(w_id)).subscribe(x => { });
 
-      this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+      this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
       let Old_id = this.products.map(function (x: { _id: string; }) { return x._id; }).indexOf(p_id);
       this.products[Old_id].isLiked = false
       this.products[Old_id].w_id = ""
-      localStorage.setItem('g_Products', JSON.stringify(this.products));
+      sessionStorage.setItem('g_Products', JSON.stringify(this.products));
       location.href = this.router.url
       //updated product
 

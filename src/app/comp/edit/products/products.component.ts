@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GlobalConstants } from 'src/app/global-constants';
 import { Product } from 'src/app/models/product.model';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -19,13 +18,13 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.uadmin = sessionStorage.getItem('g_uadmin')
     // this.CategoryObject = GlobalConstants.g_Categories
-    this.CategoryObject = JSON.parse(localStorage.getItem("g_Categories") as any)
+    this.CategoryObject = JSON.parse(sessionStorage.getItem("g_Categories") as any)
 
     if (this.uadmin === "true") {
       this.service.getAllProducts().subscribe(x => {
         this.product = x;
         // GlobalConstants.g_Products = x;
-        localStorage.setItem('g_Products', JSON.stringify(x));
+        sessionStorage.setItem('g_Products', JSON.stringify(x));
       })
     } else {
       this.router.navigate(['/home']);

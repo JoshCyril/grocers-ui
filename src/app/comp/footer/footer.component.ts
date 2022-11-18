@@ -16,10 +16,10 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    // localStorage.setItem('g_msg_color', this.msgColor as any)
-    // localStorage.setItem('g_msg_title', this.msgTitle as any)
-    // localStorage.setItem('g_msg_text', this.msgText as any)
-    // localStorage.setItem('g_msg_update', "true")
+    // sessionStorage.setItem('g_msg_color', this.msgColor as any)
+    // sessionStorage.setItem('g_msg_title', this.msgTitle as any)
+    // sessionStorage.setItem('g_msg_text', this.msgText as any)
+    // sessionStorage.setItem('g_msg_update', "true")
   }
 
   closeBtn() {

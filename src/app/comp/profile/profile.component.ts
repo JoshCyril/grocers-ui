@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
     }
   }
   findProductName(id: any) {
-    this.products = JSON.parse(localStorage.getItem("g_Products") as any)
+    this.products = JSON.parse(sessionStorage.getItem("g_Products") as any)
     return this.products.filter((x: { _id: string; }) => x._id === id).map((x: { name: string; }) => x.name);
   }
   convertToProperTime(timeStr: any) {

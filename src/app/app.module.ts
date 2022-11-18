@@ -39,8 +39,8 @@ import { CategoryComponent } from './comp/add/category/category.component';
 import { FooterComponent } from './comp/footer/footer.component';
 import { ShopComponent } from './comp/shop/shop.component';
 
-import { SearchPipe } from './search.pipe';
-import { PropertiesPipe } from './findkey.pipe';
+import { SearchPipe } from './services/search.pipe';
+import { PropertiesPipe } from './services/findkey.pipe';
 import { OrdersComponent } from './comp/orders/orders.component';
 
 @NgModule({
