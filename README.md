@@ -2,6 +2,8 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.8.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6aabaf04-7631-4b73-99fe-9228d15182cc/deploy-status)](https://app.netlify.com/sites/grocers-shop/deploys)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
