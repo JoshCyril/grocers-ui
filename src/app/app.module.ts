@@ -43,6 +43,8 @@ import { SearchPipe } from './search.pipe';
 import { PropertiesPipe } from './findkey.pipe';
 import { OrdersComponent } from './comp/orders/orders.component';
 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +90,7 @@ import { OrdersComponent } from './comp/orders/orders.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
