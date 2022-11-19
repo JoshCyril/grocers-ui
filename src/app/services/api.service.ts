@@ -18,7 +18,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = "http://ec2-65-2-124-108.ap-south-1.compute.amazonaws.com:3000/api/";
+  baseUrl: string = "https://api-grocers.herokuapp.com/api/";
   dbUser: string = "user";
   dbProduct: string = "product";
   dbCategory: string = "category";
