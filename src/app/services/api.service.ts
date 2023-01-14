@@ -18,7 +18,7 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  baseUrl: string = "https://api-grocers.herokuapp.com/api/";
+  baseUrl: string = "https://wide-eyed-slug-tights.cyclic.app/api/";
   dbUser: string = "user";
   dbProduct: string = "product";
   dbCategory: string = "category";
